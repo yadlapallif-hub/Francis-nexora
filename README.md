@@ -1,6 +1,7 @@
 # NEXORA AGENT
 
-**Your Digital Life. One Intelligent Space.**  
+**Your Digital Life. One Intelligent Space.**
+
 Created & Developed by **FRANCIS**.
 
 NEXORA is an incremental personal AI workspace: a React/TypeScript/Vite frontend, Supabase Auth and PostgreSQL with row-level security, and a server-side Supabase Edge Function for Ollama Cloud. The current build is a **core milestone**, not a fully autonomous agent. It does not execute commands, access local files, send messages, or run background automations.
