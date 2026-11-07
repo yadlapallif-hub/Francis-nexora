@@ -3,7 +3,7 @@ import { BriefcaseBusiness, Download, FileText, GraduationCap, Plus, Save, Trash
 import { useAuth } from '../context/AuthContext'
 import { useStudioDocs } from '../hooks/useStudioDocs'
 import { emptyResume, printDocument, resumeSchema, type ResumeData, type StudioDocument } from '../lib/studio'
-import { SavedDrafts, StudioNote } from '../components/StudioCommon'
+import { SavedDrafts, StudioFeedback, StudioNote } from '../components/StudioCommon'
 import { PageTitle, Spinner } from '../components/UI'
 
 export function ResumeBuilder() {
@@ -14,7 +14,7 @@ function ResumeEditor() {
   const drafts = useStudioDocs('resume')
   const [data, setData] = useState<ResumeData>(emptyResume)
   const [dirty, setDirty] = useState(false)
-  const change = (patch: Partial<ResumeData>) => { setData((current) => ({ ...current, ...patch })); setDirty(true) }
+  const change = (patch: Partial<ResumeData>) => { setData((current) => ({ ...current, ...patch })); setDirty(true); drafts.clearFeedback() }
   const confirmReplace = () => !dirty || window.confirm('Discard unsaved changes in the editor?')
   const onNew = () => { if (confirmReplace()) { setData(emptyResume()); drafts.startNew(); setDirty(false) } }
   const onLoad = (doc: StudioDocument) => {
@@ -32,7 +32,8 @@ function ResumeEditor() {
   const updateEducation = (id: string, patch: Partial<ResumeData['education'][number]>) => change({ education: data.education.map((item) => item.id === id ? { ...item, ...patch } : item) })
   return <div className="page-content studio-page"><PageTitle eyebrow="CREATE WITH CONFIDENCE" title="Resume Builder." description="Turn your experience into a clear, polished resume." action={<div className="studio-actions"><button className="button button-secondary" onClick={() => void save()} disabled={drafts.saving}>{drafts.saving ? <Spinner /> : <Save size={15} />} Save draft</button><button className="button button-primary" onClick={() => printDocument('portrait')}><Download size={15} /> Print / Save PDF</button></div>} />
     <StudioNote><FileText size={16} /> Edit on the left, preview on the right. Choose “Save as PDF” in your browser’s print dialog. {drafts.session ? 'Drafts do not autosave; save to your account before leaving.' : 'Guest edits reset when you sign in or leave; sign in before editing to save drafts.'}</StudioNote>
-    <div className="studio-grid"><div className="studio-editor-column"><section className="panel studio-editor"><div className="studio-section-head"><span className="studio-section-icon"><FileText size={18} /></span><div><span className="section-kicker">THE ESSENTIALS</span><h2>Personal details</h2></div></div><div className="studio-form-grid">
+    <StudioFeedback drafts={drafts} />
+    <div className="studio-grid"><fieldset className="studio-editor-column" disabled={drafts.saving}><section className="panel studio-editor"><div className="studio-section-head"><span className="studio-section-icon"><FileText size={18} /></span><div><span className="section-kicker">THE ESSENTIALS</span><h2>Personal details</h2></div></div><div className="studio-form-grid">
       <label>Full name<input value={data.name} maxLength={100} placeholder="Your full name" onChange={(e) => change({ name: e.target.value })} /></label><label>Professional title<input value={data.role} maxLength={120} placeholder="e.g. Product designer" onChange={(e) => change({ role: e.target.value })} /></label>
       <label>Email<input type="email" value={data.email} maxLength={160} placeholder="you@example.com" onChange={(e) => change({ email: e.target.value })} /></label><label>Phone<input value={data.phone} maxLength={80} placeholder="Optional" onChange={(e) => change({ phone: e.target.value })} /></label>
       <label>Location<input value={data.location} maxLength={100} placeholder="City, country" onChange={(e) => change({ location: e.target.value })} /></label><label>Website or portfolio<input value={data.website} maxLength={180} placeholder="Optional" onChange={(e) => change({ website: e.target.value })} /></label>
@@ -44,7 +45,7 @@ function ResumeEditor() {
     </section>
     <section className="panel studio-editor"><div className="studio-section-head"><span className="studio-section-icon"><GraduationCap size={18} /></span><div><span className="section-kicker">YOUR FOUNDATION</span><h2>Education</h2></div><button className="button button-secondary button-small" disabled={data.education.length >= 8} onClick={() => change({ education: [...data.education, { id: crypto.randomUUID(), qualification: '', school: '', dates: '' }] })}><Plus size={14} /> Add</button></div>
       {!data.education.length && <p className="studio-empty">Add qualifications, courses, or certifications.</p>}{data.education.map((item, index) => <div className="repeat-editor" key={item.id}><div className="repeat-heading"><strong>Education {index + 1}</strong><button className="icon-button" aria-label={`Remove education ${index + 1}`} onClick={() => change({ education: data.education.filter((row) => row.id !== item.id) })}><Trash2 size={15} /></button></div><div className="studio-form-grid"><label>Qualification {index + 1}<input value={item.qualification} maxLength={120} onChange={(e) => updateEducation(item.id, { qualification: e.target.value })} /></label><label>Institution {index + 1}<input value={item.school} maxLength={120} onChange={(e) => updateEducation(item.id, { school: e.target.value })} /></label><label className="studio-form-wide">Education dates {index + 1}<input value={item.dates} maxLength={100} onChange={(e) => updateEducation(item.id, { dates: e.target.value })} /></label></div></div>)}
-    </section><SavedDrafts drafts={drafts} onLoad={onLoad} onNew={onNew} /></div>
+    </section><SavedDrafts drafts={drafts} onLoad={onLoad} onNew={onNew} /></fieldset>
     <aside className="studio-preview-column"><div className="studio-preview-label"><span><span className="status-dot status-connected" /> LIVE PREVIEW</span><small>A4 · Print-ready</small></div><div className="resume-paper print-area"><header><span className="resume-accent-line" /><h2>{data.name || <span className="print-placeholder">Your name</span>}</h2><h3>{data.role || <span className="print-placeholder">Your professional title</span>}</h3><p>{[data.email, data.phone, data.location, data.website].filter(Boolean).join('  •  ') || <span className="print-placeholder">Email  •  Phone  •  Location</span>}</p></header>
       {data.summary && <section><h3>Profile</h3><p>{data.summary}</p></section>}
       {data.experience.length > 0 && <section><h3>Experience</h3>{data.experience.map((item) => <div className="resume-entry" key={item.id}><div><strong>{item.role || <span className="print-placeholder">Role</span>}</strong><span>{item.dates}</span></div><em>{item.company}</em>{item.details && <p>{item.details}</p>}</div>)}</section>}

@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 
 const mocks = vi.hoisted(() => {
   type Doc = { id: string; user_id: string; kind: string; title: string; data: unknown; updated_at: string }
-  const state: { userId: string | null; docs: Doc[]; writes: unknown[]; openAuth: ReturnType<typeof vi.fn> } = { userId: 'user-1', docs: [], writes: [], openAuth: vi.fn() }
+  const state: { userId: string | null; docs: Doc[]; writes: unknown[]; openAuth: ReturnType<typeof vi.fn>; waitBeforeWrite: Promise<void> | null } = { userId: 'user-1', docs: [], writes: [], openAuth: vi.fn(), waitBeforeWrite: null }
   function from(table: string) {
     if (table !== 'nexora_studio_documents') throw new Error('Unexpected table')
     let mode = 'list'; let payload: any; const filters: Record<string, unknown> = {}
@@ -17,6 +17,7 @@ const mocks = vi.hoisted(() => {
       update: (value: unknown) => { mode = 'update'; payload = value; state.writes.push(value); return query },
       delete: () => { mode = 'delete'; return query },
       single: async () => {
+        if (state.waitBeforeWrite) await state.waitBeforeWrite
         if (mode === 'insert') { const doc = { ...payload, id: `doc-${state.docs.length + 1}`, updated_at: new Date().toISOString() }; state.docs.push(doc); return { data: { id: doc.id }, error: null } }
         const doc = state.docs.find((item) => Object.entries(filters).every(([key, value]) => (item as any)[key] === value))
         if (!doc) return { data: null, error: { message: 'Not found' } }
@@ -39,7 +40,7 @@ import { CertificateBuilder } from '../src/pages/CertificateBuilder'
 import { certificateSchema, createCertificatePng, emptyCertificate, emptyResume, printDocument, resumeSchema } from '../src/lib/studio'
 import { MAX_CLIP_SECONDS, validateTrim } from '../src/lib/video'
 
-beforeEach(() => { mocks.state.userId = 'user-1'; mocks.state.docs = []; mocks.state.writes = []; mocks.state.openAuth.mockClear(); mocks.from.mockClear() })
+beforeEach(() => { mocks.state.userId = 'user-1'; mocks.state.docs = []; mocks.state.writes = []; mocks.state.waitBeforeWrite = null; mocks.state.openAuth.mockClear(); mocks.from.mockClear() })
 afterEach(() => { cleanup(); vi.restoreAllMocks() })
 
 describe('Creative Studio editors', () => {
@@ -50,6 +51,11 @@ describe('Creative Studio editors', () => {
     await user.click(screen.getByRole('button', { name: 'Save draft' }))
     await screen.findByText('Draft saved to your account.')
     expect(mocks.state.docs[0]).toMatchObject({ user_id: 'user-1', kind: 'resume', data: { name: 'Priya Rao', summary: 'Thoughtful designer' } })
+    await user.type(screen.getByLabelText('Professional summary'), '!')
+    expect(screen.queryByText('Draft saved to your account.')).not.toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Save draft' }))
+    await screen.findByText('Draft saved to your account.')
+    expect(mocks.state.docs[0]).toMatchObject({ data: { summary: 'Thoughtful designer!' } })
     await user.click(screen.getByRole('button', { name: 'New' }))
     expect(screen.getByLabelText('Full name')).toHaveValue('')
     await user.click(await screen.findByRole('button', { name: 'Open Priya Rao — Resume' }))
@@ -57,6 +63,18 @@ describe('Creative Studio editors', () => {
     mocks.state.userId = 'user-2'; view.rerender(<ResumeBuilder />)
     await waitFor(() => expect(screen.getByLabelText('Full name')).toHaveValue(''))
     await waitFor(() => expect(screen.queryByRole('button', { name: 'Open Priya Rao — Resume' })).not.toBeInTheDocument())
+  })
+  it('prevents edits and switching drafts while a cloud save is in flight', async () => {
+    let finish!: () => void
+    mocks.state.waitBeforeWrite = new Promise<void>((resolve) => { finish = resolve })
+    const user = userEvent.setup(); render(<ResumeBuilder />)
+    await user.type(screen.getByLabelText('Full name'), 'Saving draft')
+    await user.click(screen.getByRole('button', { name: 'Save draft' }))
+    expect(screen.getByLabelText('Full name')).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'New' })).toBeDisabled()
+    finish()
+    await screen.findByText('Draft saved to your account.')
+    expect(screen.getByLabelText('Full name')).toBeEnabled()
   })
   it('rejects an invalid saved document instead of rendering it', async () => {
     mocks.state.docs.push({ id: 'bad', user_id: 'user-1', kind: 'resume', title: 'Invalid draft', updated_at: new Date().toISOString(), data: { ...emptyResume(), name: 'x'.repeat(101) } })

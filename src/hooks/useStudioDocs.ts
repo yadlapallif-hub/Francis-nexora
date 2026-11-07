@@ -65,7 +65,8 @@ export function useStudioDocs(kind: StudioKind) {
       else { if (selectedId === id) setSelectedId(null); setMessage('Saved draft deleted.'); await refresh() }
     } catch { if (currentUser.current === userId) setError('Could not delete this draft. Please try again.') }
   }
+  const clearFeedback = () => { setError(''); setMessage('') }
   const startNew = () => { setSelectedId(null); setError(''); setMessage('') }
   const select = (id: string) => { setSelectedId(id); setError(''); setMessage('') }
-  return { session, documents, selectedId, loading, saving, error, message, setError, refresh, save, remove, startNew, select }
+  return { session, documents, selectedId, loading, saving, error, message, setError, clearFeedback, refresh, save, remove, startNew, select }
 }
