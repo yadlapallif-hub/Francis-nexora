@@ -1,0 +1,11 @@
+# Implemented API contract
+
+The only custom Edge Function in this milestone is `POST /functions/v1/nexora-chat`. The caller must send a valid Supabase user access token in the Authorization header, a public Supabase API key in `apikey`, and JSON. CORS allows only configured exact origins. The function verifies the user again with Supabase Auth; conversation reads are performed with the user's token and RLS.
+
+- `{ "action": "status" }` → `{ "provider": "Ollama Cloud", "model": "<model or null>", "configured": true }`. `configured` only means the server has a key and syntactically valid model setting; it is **not** a connection test.
+- `{ "action": "test" }` → `{ "ok": true, "provider": "Ollama Cloud", "model": "<model>" }` only after a real short Ollama request succeeds. The response body from the model is not returned.
+- `{ "action": "chat", "conversationId": "<uuid>", "requestId": "<uuid>", "message": "<text>" }` → `{ "message": "<assistant text>", "requestId": "<uuid>", "replayed": false }`. Repeat the same request ID and text to recover an already-saved answer without a second provider call. A changed message with the same request ID is rejected.
+
+Errors use `{ "error": { "code": "<safe code>", "message": "<safe explanation>" } }`; the platform can also reject an invalid JWT before the function runs. The function accepts no client-supplied system prompt, provider key, or conversation history. It loads a bounded history from the user's conversation, calls `https://ollama.com/api/chat` server-side with `stream: false`, validates the provider response, and records user/assistant messages through a restricted server-side write. Known private-token patterns are rejected on a best-effort basis, but users must never enter secrets.
+
+Tasks, memory, conversations, profiles, and activity use the Supabase client and RLS-protected tables directly. The browser can read messages but cannot insert or update them directly. There are **no** task-orchestration, approvals, tools, health, scheduler, device-pairing, or local-execution endpoints in this build.

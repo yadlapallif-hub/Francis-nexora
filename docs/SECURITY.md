@@ -1,0 +1,9 @@
+# Security notes
+
+- All user-owned tables have RLS. Ownership is checked using `auth.uid()`, and messages have a composite foreign key to the owner's conversation. Authenticated users cannot directly write messages, audit events, or chat leases; column grants prevent changing ownership fields.
+- The Edge Function verifies the user and conversation before using the server-only service-role key to persist messages and sanitized audit metadata. Service-role and Ollama credentials never belong in frontend code, Git, messages, or logs.
+- A database transaction/advisory lock provides per-user concurrency and request limits across Edge instances. Requests and provider output have size limits; provider requests have a 40-second timeout. Retries use a user-scoped request ID and an existing answer is replayed, not regenerated.
+- React Markdown is rendered without raw HTML; links are sanitized by the renderer and external links use `noopener noreferrer`. Model content is untrusted and cannot invoke tools or override authorization.
+- Basic patterns for common secrets are rejected in several inputs and database constraints. Detection is necessarily incomplete. Users must not enter any passwords, private keys, or personal secrets. Audit events contain only event types and limited status/error codes, not message content.
+- The current application has no executable agent tools, device pairing, scheduling, approval workflow, or local file access. Do not enable high-impact actions without designing and testing atomic, exact-action approval, permissions, idempotency, audit, expiration, and revocation first.
+- Before a public launch: conduct an independent security review, add global abuse controls and a retention policy for leases/audit events, configure production email and observability, check all RLS policies with real users, and review Supabase/Vercel/provider quotas. The UI's connection status is session-local and does not guarantee future availability.
