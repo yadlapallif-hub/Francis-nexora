@@ -13,6 +13,9 @@ import type { Page } from './lib/types'
 import { readBackgroundTheme, saveBackgroundTheme } from './lib/appearance'
 
 const Workspace = lazy(() => import('./pages/Workspace').then((module) => ({ default: module.Workspace })))
+const ResumeBuilder = lazy(() => import('./pages/ResumeBuilder').then((module) => ({ default: module.ResumeBuilder })))
+const CertificateBuilder = lazy(() => import('./pages/CertificateBuilder').then((module) => ({ default: module.CertificateBuilder })))
+const VideoHub = lazy(() => import('./pages/VideoHub').then((module) => ({ default: module.VideoHub })))
 
 function Shell() {
   const [page, setPage] = useState<Page>('overview')
@@ -29,6 +32,9 @@ function Shell() {
   let content
   switch (page) {
     case 'overview': content = <Overview navigate={navigate} startChat={startChat} openConversation={openConversation} newTask={newTask} />; break
+    case 'resume': content = <Suspense fallback={<div className="page-content empty-inline">Loading resume builder…</div>}><ResumeBuilder /></Suspense>; break
+    case 'certificates': content = <Suspense fallback={<div className="page-content empty-inline">Loading certificate studio…</div>}><CertificateBuilder /></Suspense>; break
+    case 'video': content = <Suspense fallback={<div className="page-content empty-inline">Loading video hub…</div>}><VideoHub /></Suspense>; break
     case 'workspace': content = <Suspense fallback={<div className="page-content empty-inline">Loading workspace…</div>}><Workspace navigate={navigate} intent={chatIntent} /></Suspense>; break
     case 'tasks': content = <Tasks newIntent={taskIntent} consumeIntent={consumeTaskIntent} />; break
     case 'memory': content = <Memory />; break

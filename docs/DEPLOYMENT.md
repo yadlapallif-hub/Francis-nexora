@@ -9,9 +9,9 @@
    - `OLLAMA_MODEL`: a model identifier actually available to that account, for example `gpt-oss:120b`.
    - `NEXORA_APP_ORIGIN`: exact allowed origins, comma-separated, for example `https://<YOUR_DOMAIN>,http://localhost:5173`. The fallback is `APP_ORIGIN`. Do not use `*` or a trailing slash.
 4. Keep any existing Auth site URL and redirects used by other applications. Add the exact NEXORA production origin and needed preview/local callback URLs to the Auth redirect allowlist, e.g. `https://<YOUR_DOMAIN>/**`. Email confirmation is controlled by the project's existing Auth settings. The default Supabase email service has low limits and may not be suitable for production; configure a suitable SMTP provider when needed.
-5. The transactional tests in `supabase/tests/rls_and_limits.sql` create temporary fixture users and roll everything back. Run them with an authorized database administrator in a suitable test project, then additionally test actual signed-in sessions from two different accounts. They test representative isolation and rate/concurrency cases, not every security property.
+5. The transactional tests in `supabase/tests/rls_and_limits.sql` and `supabase/tests/studio_rls.sql` create temporary fixture users and roll everything back. Run them with an authorized database administrator in a suitable test project, then additionally test actual signed-in sessions from two different accounts. They test representative isolation and rate/concurrency cases, not every security property.
 
-On the connected NEXORA project, a default model identifier has been set; the owner still needs to add the private key. The shared project key is used by signed-in users, so review signup policy, quotas, and spending before enabling it.
+On the connected NEXORA project, the model and key secret names are configured, but the latest authenticated live provider test returned HTTP 402. Review the Ollama plan/credits; a configured secret name does not establish a working key or model. The shared project key is used by signed-in users, so review signup policy, quotas, and spending before enabling it.
 
 The secret store can also be populated with the Supabase CLI using a private local file outside the repository: `supabase secrets set --env-file <PRIVATE_ENV_FILE>`. Do not place real values in documentation, source control, shell history, or chat. Rotate any credential that has been exposed.
 
@@ -30,6 +30,9 @@ The secret store can also be populated with the Supabase CLI using a private loc
 - [ ] With two real test users, confirm each can see only their own conversations, messages, tasks, memory, and activity.
 - [ ] Create a manual task, change its status, refresh, and delete it. The status represents a user assertion, not an automatically verified result.
 - [ ] Save/edit/delete a memory note; confirm it is not included in AI prompts in this release.
+- [ ] Sign in before editing, save/reopen/delete resume and certificate drafts, and confirm a second account cannot read or change them. Drafts do not autosave.
+- [ ] Print a resume and certificate or save as PDF. Download a certificate PNG and check the content and readability. Certificates do not assert accreditation.
+- [ ] In a supported desktop browser, select a small local video, trim a short range, export WebM with and without audio, and verify playback. Keep the tab open during real-time export. Video is not uploaded or stored; browser format support varies.
 - [ ] Inspect browser source/network responses and logs for private keys. Do not intentionally insert secrets as test data.
 - [ ] Verify an invalid/expired session, provider failure, and CORS misconfiguration produce a useful, sanitized error.
 - [ ] Confirm planned approvals, automations, tools, local files, and the laptop companion are unavailable rather than falsely marked connected.

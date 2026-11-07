@@ -1,4 +1,4 @@
-import { Activity, AppWindow, ArrowUpRight, Bell, Bot, Boxes, Brain, ChevronDown, CircleHelp, ClipboardList, Cpu, FileStack, LayoutDashboard, ListChecks, LogIn, Menu, Palette, ShieldCheck, Sparkles, UserRound, X, Zap, type LucideIcon } from 'lucide-react'
+import { Activity, AppWindow, ArrowUpRight, Award, Bell, Bot, Boxes, Brain, ChevronDown, CircleHelp, ClipboardList, Cpu, FileStack, FileText, Film, LayoutDashboard, ListChecks, LogIn, Menu, Palette, ShieldCheck, Sparkles, UserRound, X, Zap, type LucideIcon } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useData } from '../context/DataContext'
 import type { Page, ProviderState } from '../lib/types'
@@ -11,6 +11,9 @@ const sections: { title: string; items: NavItem[] }[] = [
     { id: 'overview', label: 'Overview', icon: LayoutDashboard }, { id: 'workspace', label: 'AI Workspace', icon: Sparkles },
     { id: 'tasks', label: 'Task Manager', icon: ClipboardList }, { id: 'automation', label: 'Automation', icon: Zap }, { id: 'approvals', label: 'Approval Center', icon: ListChecks },
   ] },
+  { title: 'CREATIVE STUDIO', items: [
+    { id: 'resume', label: 'Resume Builder', icon: FileText }, { id: 'certificates', label: 'Certificates', icon: Award }, { id: 'video', label: 'Video Editing Hub', icon: Film },
+  ] },
   { title: 'MANAGE', items: [
     { id: 'tools', label: 'Tools', icon: Boxes }, { id: 'files', label: 'Files & Projects', icon: FileStack }, { id: 'memory', label: 'Agent Memory', icon: Brain }, { id: 'activity', label: 'Activity Log', icon: Activity },
   ] },
@@ -18,7 +21,7 @@ const sections: { title: string; items: NavItem[] }[] = [
     { id: 'companion', label: 'Laptop Companion', icon: AppWindow }, { id: 'model', label: 'AI Model Settings', icon: Cpu }, { id: 'security', label: 'Security & Permissions', icon: ShieldCheck },
   ] },
 ]
-export const pageNames: Record<Page, string> = { overview: 'Overview', workspace: 'AI Workspace', tasks: 'Task Manager', automation: 'Automation', approvals: 'Approval Center', tools: 'Tools', files: 'Files & Projects', memory: 'Agent Memory', activity: 'Activity Log', companion: 'Laptop Companion', model: 'AI Model Settings', security: 'Security & Permissions', account: 'Account Settings' }
+export const pageNames: Record<Page, string> = { overview: 'Overview', resume: 'Resume Builder', certificates: 'Certificate Studio', video: 'Video Editing Hub', workspace: 'AI Workspace', tasks: 'Task Manager', automation: 'Automation', approvals: 'Approval Center', tools: 'Tools', files: 'Files & Projects', memory: 'Agent Memory', activity: 'Activity Log', companion: 'Laptop Companion', model: 'AI Model Settings', security: 'Security & Permissions', account: 'Account Settings' }
 export function providerLabel(provider: ProviderState): string {
   switch (provider.state) {
     case 'signed-out': return 'Sign in to check'

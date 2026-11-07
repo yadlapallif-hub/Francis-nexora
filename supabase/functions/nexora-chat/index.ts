@@ -197,6 +197,7 @@ export async function handleRequest(request: Request, env: Environment, fetcher:
       })
       if (!providerResponse.ok) {
         if (providerResponse.status === 429) throw new ApiError(429, 'PROVIDER_RATE_LIMIT', 'Ollama Cloud rate limit reached. Please try again later.')
+        if (providerResponse.status === 402) throw new ApiError(402, 'PROVIDER_PAYMENT_REQUIRED', 'Ollama Cloud returned payment required. Check your Ollama plan and available credits.')
         if ([401, 403].includes(providerResponse.status)) throw new ApiError(503, 'PROVIDER_AUTH', 'Ollama Cloud rejected its server credentials. Check the secret in Supabase.')
         throw new ApiError(502, 'PROVIDER_ERROR', 'Ollama Cloud could not process the request. Check the configured model and try again.')
       }

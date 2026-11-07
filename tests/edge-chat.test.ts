@@ -122,7 +122,7 @@ describe('nexora-chat secure gateway (mocked services)', () => {
     expect(mock.providerCalls).toHaveLength(0)
     expect(mock.messages).toHaveLength(0)
   })
-  it.each([[429, 'PROVIDER_RATE_LIMIT'], [401, 'PROVIDER_AUTH'], [404, 'PROVIDER_ERROR']])('sanitizes provider HTTP %i', async (status, code) => {
+  it.each([[429, 'PROVIDER_RATE_LIMIT'], [402, 'PROVIDER_PAYMENT_REQUIRED'], [401, 'PROVIDER_AUTH'], [404, 'PROVIDER_ERROR']])('sanitizes provider HTTP %i', async (status, code) => {
     const mock = backend({ providerStatus: status as number })
     const result = await handleRequest(request(chat), env, mock.fetcher)
     const text = await result.text()
