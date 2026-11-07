@@ -4,7 +4,7 @@
 
 Created & Developed by **FRANCIS**.
 
-NEXORA is an incremental personal AI workspace: a React/TypeScript/Vite frontend, Supabase Auth and PostgreSQL with row-level security, and a server-side Supabase Edge Function for Ollama Cloud. The current build is a **core milestone**, not a fully autonomous agent. It does not execute commands, access local files, send messages, or run background automations.
+NEXORA is an incremental personal AI workspace: a React/TypeScript/Vite frontend, Supabase Auth and PostgreSQL with row-level security, and a server-side Supabase Edge Function for Ollama Cloud. The current build is a **core milestone**, not a fully autonomous agent. It does not autonomously execute commands, browse local files, send messages, or run background automations. The video editor can read only a file the user explicitly selects in the browser.
 
 ## What works in this build
 
@@ -18,7 +18,7 @@ NEXORA is an incremental personal AI workspace: a React/TypeScript/Vite frontend
 
 Drafts do not autosave. Sign in before editing if you want cloud saving; guest edits reset when signing in or leaving the page. Video projects are never saved.
 
-See [feature status and actual verification](docs/STATUS.md). Approvals, agent orchestration/tool execution, scheduled automations, local file access, and the Windows companion are **not implemented**. No high-impact action is available to bypass an approval gate.
+See [feature status and actual verification](docs/STATUS.md). Approvals, agent orchestration/tool execution, scheduled automations, general agent access to local files, and the Windows companion are **not implemented**. No high-impact action is available to bypass an approval gate.
 
 ## Run locally
 

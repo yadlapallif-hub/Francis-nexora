@@ -35,7 +35,7 @@ The secret store can also be populated with the Supabase CLI using a private loc
 - [ ] In a supported desktop browser, select a small local video, trim a short range, export WebM with and without audio, and verify playback. Keep the tab open during real-time export. Video is not uploaded or stored; browser format support varies.
 - [ ] Inspect browser source/network responses and logs for private keys. Do not intentionally insert secrets as test data.
 - [ ] Verify an invalid/expired session, provider failure, and CORS misconfiguration produce a useful, sanitized error.
-- [ ] Confirm planned approvals, automations, tools, local files, and the laptop companion are unavailable rather than falsely marked connected.
+- [ ] Confirm planned approvals, automations, tools, general agent access to local files, and the laptop companion are unavailable rather than falsely marked connected.
 
 ## Quotas and operational limits
 
