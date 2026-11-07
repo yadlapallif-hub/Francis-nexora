@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { AuthProvider } from './context/AuthContext'
 import { DataProvider } from './context/DataContext'
 import { AuthModal } from './components/AuthModal'
@@ -10,11 +10,14 @@ import { Activity } from './pages/Activity'
 import { Account, ModelSettings, Security } from './pages/Settings'
 import { Upcoming } from './pages/Upcoming'
 import type { Page } from './lib/types'
+import { readBackgroundTheme, saveBackgroundTheme } from './lib/appearance'
 
 const Workspace = lazy(() => import('./pages/Workspace').then((module) => ({ default: module.Workspace })))
 
 function Shell() {
   const [page, setPage] = useState<Page>('overview')
+  const [backgroundTheme, setBackgroundTheme] = useState(readBackgroundTheme)
+  useEffect(() => { saveBackgroundTheme(backgroundTheme) }, [backgroundTheme])
   const [menuOpen, setMenuOpen] = useState(false)
   const [taskIntent, setTaskIntent] = useState(0)
   const [chatIntent, setChatIntent] = useState<{ id: number; conversationId?: string; draft?: string }>({ id: 0 })
@@ -35,6 +38,6 @@ function Shell() {
     case 'security': content = <Security navigate={navigate} />; break
     default: content = <Upcoming page={page} navigate={navigate} />
   }
-  return <div className="app-shell"><a href="#main-content" className="skip-link">Skip to content</a><Sidebar page={page} navigate={navigate} open={menuOpen} setOpen={setMenuOpen} /><div className="main-area"><Topbar page={page} navigate={navigate} onMenu={() => setMenuOpen(true)} /><main id="main-content">{content}</main><TopFooter /></div><AuthModal /></div>
+  return <div className="app-shell" data-theme={backgroundTheme}><a href="#main-content" className="skip-link">Skip to content</a><Sidebar page={page} navigate={navigate} open={menuOpen} setOpen={setMenuOpen} /><div className="main-area"><Topbar page={page} navigate={navigate} onMenu={() => setMenuOpen(true)} backgroundTheme={backgroundTheme} onBackgroundThemeChange={setBackgroundTheme} /><main id="main-content">{content}</main><TopFooter /></div><AuthModal /></div>
 }
 export default function App() { return <AuthProvider><DataProvider><Shell /></DataProvider></AuthProvider> }

@@ -12,7 +12,7 @@ NEXORA is an incremental personal AI workspace: a React/TypeScript/Vite frontend
 - User-owned conversations, safely rendered Markdown, conversation search/rename/delete, response copy, and retry with an idempotency key.
 - A server-only, authenticated Ollama Cloud chat gateway with a real connection-test action, bounded request/response sizes, timeout, a database-backed per-user rate/concurrency limit, and sanitized errors. **A real response requires an Ollama key and a supported model configured in Supabase.**
 - Manual task tracking, user-entered memory notes, and a minimal activity log. Tasks are **not** automatically executed; memory is **not** sent to the model in this build.
-- Responsive app shell with honest unavailable/not-configured states.
+- Responsive app shell with honest unavailable/not-configured states, plus Aurora, Forest, and Dusk background themes saved in the browser.
 
 See [feature status and actual verification](docs/STATUS.md). Approvals, agent orchestration/tool execution, scheduled automations, local file access, and the Windows companion are **not implemented**. No high-impact action is available to bypass an approval gate.
 
@@ -31,7 +31,7 @@ The frontend uses the current browser origin for email-confirmation redirects. A
 
 ## Configure Ollama Cloud safely
 
-In **Supabase Dashboard → Edge Functions → Secrets**, set `OLLAMA_API_KEY` and `OLLAMA_MODEL` to the private Ollama Cloud key and an actual model available to your Ollama account. Set `NEXORA_APP_ORIGIN` to a comma-separated list of exact trusted frontend origins. `APP_ORIGIN` is supported as a fallback; the namespaced setting avoids changing another app's shared configuration. Do not paste credentials into chat or commit them to Git. Sign in, open **AI Model Settings**, and use **Test connection**. The UI only reports connected after a successful real test or chat in that session.
+In **Supabase Dashboard → Edge Functions → Secrets**, set `OLLAMA_API_KEY` and `OLLAMA_MODEL` to the private Ollama Cloud key and an actual model available to your Ollama account. Set `NEXORA_APP_ORIGIN` to a comma-separated list of exact trusted frontend origins. `APP_ORIGIN` is supported as a fallback; the namespaced setting avoids changing another app's shared configuration. The **AI Model Settings** page links directly to the owner-only Supabase secret store and Ollama key settings. Do not paste credentials into NEXORA, chat, or Git. The server key is shared by signed-in users, so control sign-ups and provider quotas. Sign in, open **AI Model Settings**, refresh the status, and use **Test connection**. The UI only reports connected after a successful real test or chat in that session.
 
 ## Security and testing
 

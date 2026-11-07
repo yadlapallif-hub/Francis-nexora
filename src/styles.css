@@ -27,3 +27,48 @@
 
 /* restrained syntax highlighting for safely rendered Markdown */
 .hljs-keyword,.hljs-selector-tag,.hljs-literal{color:#c4a6ed}.hljs-string,.hljs-title,.hljs-attr{color:#a0dfb2}.hljs-number,.hljs-built_in{color:#e8bc8b}.hljs-comment{color:#718779}.hljs-variable,.hljs-params{color:#bcd8c5}
+
+/* Background preferences: the wallpaper stays behind the interface and never carries text. */
+.theme-control{height:34px;display:flex;align-items:center;gap:7px;padding:0 9px;border:1px solid #2b423d;border-radius:7px;background:#101d1a;color:#a8c4b7;position:relative;flex-shrink:0}
+.theme-control:hover{border-color:#598778;color:#e2f7ec}
+.theme-control:focus-within{outline:2px solid #8beabb;outline-offset:3px}
+.theme-control select{appearance:none;-webkit-appearance:none;border:0;outline:0;background:transparent;color:#c7e1d5;font-size:10.5px;font-weight:600;cursor:pointer;padding:0;min-width:42px}
+.theme-control option{background:#101d1a;color:#e5f5ec}
+.theme-chevron{pointer-events:none}
+.model-status{min-width:0}
+.model-status-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.app-shell[data-theme="aurora"]{
+  --themed-surface:rgba(8,22,30,.92);--themed-border:#24414a;--themed-subtle:rgba(13,31,38,.88);
+  background-color:#07111c;
+  background-image:linear-gradient(110deg,rgba(4,13,22,.36),rgba(5,16,23,.05) 66%,rgba(4,13,22,.24)),url('/nexora-aurora.webp');
+  background-position:center top;background-size:cover;background-attachment:fixed;
+}
+.app-shell[data-theme="dusk"]{
+  --themed-surface:rgba(22,19,32,.94);--themed-border:#3b3449;--themed-subtle:rgba(31,26,40,.9);
+  background-color:#110f1a;
+  background-image:radial-gradient(ellipse at 85% 4%,rgba(116,71,149,.32),transparent 38%),radial-gradient(ellipse at 26% 68%,rgba(54,89,97,.24),transparent 42%),linear-gradient(145deg,#0d111b,#17121f 58%,#10151b);
+  background-size:cover;background-attachment:fixed;
+}
+.app-shell:is([data-theme="aurora"],[data-theme="dusk"]) .sidebar{background:var(--themed-surface);border-color:var(--themed-border);backdrop-filter:blur(18px)}
+.app-shell:is([data-theme="aurora"],[data-theme="dusk"]) .topbar{background:var(--themed-surface);border-color:var(--themed-border)}
+.app-shell:is([data-theme="aurora"],[data-theme="dusk"]) :is(.panel,.stat-card,.workspace-shell){background:var(--themed-surface);border-color:var(--themed-border);box-shadow:0 16px 38px #0002}
+.app-shell:is([data-theme="aurora"],[data-theme="dusk"]) :is(.workspace-label,.account-chip,.date-pill,.model-status,.model-mini,.theme-control,.quick-action,.conversation-sidebar,.search-field){background:var(--themed-subtle);border-color:var(--themed-border)}
+.app-shell:is([data-theme="aurora"],[data-theme="dusk"]) :is(.sidebar-bottom,.chat-top,.conversation-foot,.setup-item){border-color:var(--themed-border)}
+.app-shell[data-theme="aurora"] .hero-card{background:radial-gradient(circle at 76% 40%,#174f52 0,transparent 44%),linear-gradient(115deg,#0c2630,#10363a 55%,#061920);border-color:#315d60}
+.app-shell[data-theme="dusk"] .hero-card{background:radial-gradient(circle at 77% 42%,#493254 0,transparent 44%),linear-gradient(115deg,#252136,#282339 55%,#161a24);border-color:#50445d}
+.app-shell:is([data-theme="aurora"],[data-theme="dusk"]) .hero-art{mix-blend-mode:screen;opacity:.78}
+.app-shell:is([data-theme="aurora"],[data-theme="dusk"]) .modal-card{background:var(--themed-surface);border-color:var(--themed-border);backdrop-filter:blur(18px)}
+@media(max-width:640px){
+  .theme-control{width:33px;justify-content:center;padding:0}
+  .theme-control select{position:absolute;inset:0;width:100%;height:100%;opacity:0}
+  .theme-chevron{display:none}
+  .app-shell:is([data-theme="aurora"],[data-theme="dusk"]) .hero-art{opacity:.4}
+}
+@media(max-width:400px){.model-status{max-width:104px;gap:5px;padding-left:7px;padding-right:7px}.topbar-left{gap:5px}}
+.setup-steps{list-style-type:decimal;margin:0 0 19px;padding:0 0 0 18px;color:#a4baae;font-size:10.5px;line-height:1.7}
+.setup-steps li{padding-left:4px;margin:0 0 7px}
+.setup-steps li::marker{color:#9fdfba;font-weight:700}
+.setup-steps code{color:#c5eddb;font-size:10px;overflow-wrap:anywhere}
+.setup-links{display:flex;flex-wrap:wrap;gap:8px}
+.setup-links .button{text-decoration:none}
+.settings-side .shared-key-note{margin:15px 0 18px;color:#93a99d;font-size:10px}

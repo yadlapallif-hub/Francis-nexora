@@ -6,10 +6,12 @@
 2. Deploy `supabase/functions/nexora-chat` using `supabase functions deploy nexora-chat` with JWT verification enabled. The function uses Supabase-provided `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and server-only `SUPABASE_SERVICE_ROLE_KEY` runtime values. The service key must never be given to the browser.
 3. In the Supabase dashboard's Edge Function secret store, set:
    - `OLLAMA_API_KEY`: the private Ollama Cloud key.
-   - `OLLAMA_MODEL`: a model identifier actually available to that account, for example `<YOUR_AVAILABLE_MODEL>`.
+   - `OLLAMA_MODEL`: a model identifier actually available to that account, for example `gpt-oss:120b`.
    - `NEXORA_APP_ORIGIN`: exact allowed origins, comma-separated, for example `https://<YOUR_DOMAIN>,http://localhost:5173`. The fallback is `APP_ORIGIN`. Do not use `*` or a trailing slash.
 4. Keep any existing Auth site URL and redirects used by other applications. Add the exact NEXORA production origin and needed preview/local callback URLs to the Auth redirect allowlist, e.g. `https://<YOUR_DOMAIN>/**`. Email confirmation is controlled by the project's existing Auth settings. The default Supabase email service has low limits and may not be suitable for production; configure a suitable SMTP provider when needed.
 5. The transactional tests in `supabase/tests/rls_and_limits.sql` create temporary fixture users and roll everything back. Run them with an authorized database administrator in a suitable test project, then additionally test actual signed-in sessions from two different accounts. They test representative isolation and rate/concurrency cases, not every security property.
+
+On the connected NEXORA project, a default model identifier has been set; the owner still needs to add the private key. The shared project key is used by signed-in users, so review signup policy, quotas, and spending before enabling it.
 
 The secret store can also be populated with the Supabase CLI using a private local file outside the repository: `supabase secrets set --env-file <PRIVATE_ENV_FILE>`. Do not place real values in documentation, source control, shell history, or chat. Rotate any credential that has been exposed.
 

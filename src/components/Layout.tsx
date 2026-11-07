@@ -1,7 +1,8 @@
-import { Activity, AppWindow, ArrowUpRight, Bell, Bot, Boxes, Brain, ChevronDown, CircleHelp, ClipboardList, Cpu, FileStack, LayoutDashboard, ListChecks, LogIn, Menu, ShieldCheck, Sparkles, UserRound, X, Zap, type LucideIcon } from 'lucide-react'
+import { Activity, AppWindow, ArrowUpRight, Bell, Bot, Boxes, Brain, ChevronDown, CircleHelp, ClipboardList, Cpu, FileStack, LayoutDashboard, ListChecks, LogIn, Menu, Palette, ShieldCheck, Sparkles, UserRound, X, Zap, type LucideIcon } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useData } from '../context/DataContext'
 import type { Page, ProviderState } from '../lib/types'
+import type { BackgroundTheme } from '../lib/appearance'
 import { Brand } from './UI'
 
 type NavItem = { id: Page; label: string; icon: LucideIcon }
@@ -48,11 +49,11 @@ export function Sidebar({ page, navigate, open, setOpen }: { page: Page; navigat
     </aside>
   </>
 }
-export function Topbar({ page, navigate, onMenu }: { page: Page; navigate: (page: Page) => void; onMenu: () => void }) {
+export function Topbar({ page, navigate, onMenu, backgroundTheme, onBackgroundThemeChange }: { page: Page; navigate: (page: Page) => void; onMenu: () => void; backgroundTheme: BackgroundTheme; onBackgroundThemeChange: (theme: BackgroundTheme) => void }) {
   const { session, openAuth } = useAuth()
   const { provider } = useData()
   return <header className="topbar"><div className="topbar-left"><button className="icon-button menu-button" onClick={onMenu} aria-label="Open navigation"><Menu size={21} /></button><span className="crumb-muted">Workspace</span><span className="crumb-divider">/</span><span className="crumb-current">{pageNames[page]}</span></div>
-    <div className="topbar-right"><button className="model-status" onClick={() => navigate('model')} title="Open AI model settings"><span className={`status-dot status-${provider.state}`} />{providerLabel(provider)}<ChevronDown size={13} /></button><span className="topbar-separator" />
+    <div className="topbar-right"><button className="model-status" onClick={() => navigate('model')} title="Open AI model settings"><span className={`status-dot status-${provider.state}`} /><span className="model-status-label">{providerLabel(provider)}</span><ChevronDown size={13} /></button><label className="theme-control" title="Change background theme"><Palette size={15} aria-hidden="true" /><span className="sr-only">Background theme</span><select value={backgroundTheme} onChange={(event) => onBackgroundThemeChange(event.target.value as BackgroundTheme)}><option value="aurora">Aurora</option><option value="forest">Forest</option><option value="dusk">Dusk</option></select><ChevronDown className="theme-chevron" size={13} aria-hidden="true" /></label><span className="topbar-separator" />
       <button className="top-icon" aria-label="Open activity log" title="Activity log" onClick={() => navigate('activity')}><Bell size={18} /></button>
       {session ? <button className="top-avatar" onClick={() => navigate('account')} aria-label="Open account settings">{(session.user.email?.charAt(0) || 'U').toUpperCase()}</button> : <button className="top-signin" onClick={openAuth}><LogIn size={15} /> Sign in</button>}
     </div></header>

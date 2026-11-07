@@ -2,17 +2,17 @@
 
 ## Implemented and checked
 
-- Responsive app shell, signed-out states, email/password Auth integration, conversation UI, manual tasks, user-entered memory notes, profile settings, and a minimal activity log.
+- Responsive app shell with three browser-persisted background themes, signed-out states, email/password Auth integration, conversation UI, manual tasks, user-entered memory notes, profile settings, and a minimal activity log.
 - Supabase core and secret-pattern migrations applied to the connected project; all seven NEXORA tables have RLS enabled. Rollback-only live SQL checks passed for representative cross-user conversation reads/inserts, foreign conversation claims, direct message-write denial, and rate/concurrency guards.
 - `nexora-chat` deployed and marked ACTIVE with JWT verification enabled. An unauthenticated live GET was rejected by the Supabase gateway. The function is covered by mocked tests for authorization, exact-origin CORS, configuration errors, idempotent replay, rate/concurrency errors, provider failures, timeouts, and malformed responses.
-- Local production build and all 18 automated tests pass, with no remaining test failures. Browser layout was inspected at desktop and mobile widths; a browser smoke test used mocked Auth/database responses to exercise manual task creation and status updates. These mocks do not prove live integrations work.
+- Local production build and all 22 automated tests pass, with no remaining test failures. Browser layout was inspected at desktop and mobile widths; a browser smoke test used mocked Auth/database responses to exercise manual task creation and status updates. These mocks do not prove live integrations work.
 - Vercel reports the production deployment as READY and promoted. The public production landing page was retrieved successfully; a separate deployment file-tree API request returned 404, so its file tree was not verified through that API. Vercel protects the unique deployment/preview URLs with its login; the production project domain was publicly reachable during the check.
 
 ## Configured but not fully verified
 
 - Supabase Auth sign-up/sign-in and real authenticated Edge Function calls have not been exercised with a real confirmed user in this environment. The project's existing email confirmation and Auth site URL were preserved; NEXORA redirect origins were added.
 - The Vercel project has Vite build settings and public Supabase frontend environment values configured. The public landing page was checked, but deployed sign-up/sign-in, authenticated data access, and AI chat still require live acceptance testing.
-- Ollama Cloud is **not configured**: no `OLLAMA_API_KEY` or `OLLAMA_MODEL` was present in the connected function secret store during setup. No live model request has succeeded or been claimed. Configure both privately in Supabase, then run the real connection test.
+- Ollama Cloud is **not connected**: the connected project now has `OLLAMA_MODEL` set to `gpt-oss:120b` (listed in Ollama’s public Cloud model catalog), but no `OLLAMA_API_KEY` was present at the last check. No live model request has succeeded or been claimed. The project owner must add the key privately in Supabase and run the real connection test; model access depends on the Ollama account.
 
 ## Partial or not implemented
 

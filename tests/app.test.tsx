@@ -11,11 +11,30 @@ const auth = vi.hoisted(() => ({
 vi.mock('../src/lib/supabase', () => ({ supabase: { auth }, supabaseUrl: 'https://example.test', supabaseAnonKey: 'public' }))
 import App from '../src/App'
 
-afterEach(() => { cleanup(); vi.clearAllMocks() })
+afterEach(() => { cleanup(); window.localStorage.clear(); vi.clearAllMocks() })
 window.scrollTo = vi.fn()
 HTMLElement.prototype.scrollIntoView = vi.fn()
 
 describe('application shell', () => {
+  it('changes the background theme and remembers the choice in this browser', async () => {
+    const user = userEvent.setup()
+    const view = render(<App />)
+    const picker = screen.getByRole('combobox', { name: /background theme/i })
+    expect(picker).toHaveValue('aurora')
+    expect(view.container.querySelector('.app-shell')).toHaveAttribute('data-theme', 'aurora')
+    await user.selectOptions(picker, 'dusk')
+    expect(view.container.querySelector('.app-shell')).toHaveAttribute('data-theme', 'dusk')
+    expect(window.localStorage.getItem('nexora-background-theme')).toBe('dusk')
+    view.unmount()
+    const restored = render(<App />)
+    expect(screen.getByRole('combobox', { name: /background theme/i })).toHaveValue('dusk')
+    expect(restored.container.querySelector('.app-shell')).toHaveAttribute('data-theme', 'dusk')
+  })
+  it('falls back to Aurora for an unrecognized saved theme', () => {
+    window.localStorage.setItem('nexora-background-theme', 'unknown-theme')
+    const view = render(<App />)
+    expect(view.container.querySelector('.app-shell')).toHaveAttribute('data-theme', 'aurora')
+  })
   it('shows honest signed-out metrics and navigates to gated features', async () => {
     const user = userEvent.setup()
     render(<App />)
