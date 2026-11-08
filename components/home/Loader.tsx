@@ -31,7 +31,7 @@ export function Loader() {
           key="francis-loader"
           className="fixed inset-0 z-[100] overflow-hidden bg-[#FAFAF9]"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 0.75, ease: 'easeInOut' } }}
+          exit={{ opacity: 0, scale: 1.06, transition: { duration: 0.6, ease: 'easeInOut' } }}
           aria-hidden="true"
         >
           {/* Light grade: warm paper, faint red grid, soft ember glow */}

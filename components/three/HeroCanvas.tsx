@@ -16,8 +16,10 @@ export function HeroCanvas({ className }: { className?: string }) {
     if (!mount) return;
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Skip the whole WebGL context on phones — the canvas is CSS-hidden there anyway,
+    // and physical-transmission materials are too heavy for mobile GPUs.
     const isSmall = window.innerWidth < 768;
-    if (prefersReduced) return;
+    if (prefersReduced || isSmall) return;
 
     let disposed = false;
     const scene = new THREE.Scene();
