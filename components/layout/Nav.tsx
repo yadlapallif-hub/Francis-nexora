@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, ArrowUpRight, FileText, Sparkles } from 'lucide-react';
+import { Menu, X, ArrowUpRight, FileText, Asterisk } from 'lucide-react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { LogoMark, Wordmark } from '@/components/brand/LogoMark';
 import { cn } from '@/lib/cn';
@@ -81,7 +81,7 @@ export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
         <Link href="/" className="group flex items-center gap-3 outline-none focus-visible:ring-2 focus-visible:ring-electric rounded-xl">
           <LogoMark className="h-9 w-9 transition-transform duration-500 group-hover:rotate-6" />
           <span className="hidden sm:block">
-            <Wordmark light={light} multi className="transition-colors duration-500" />
+            <Wordmark light={light} className="transition-colors duration-500" />
           </span>
         </Link>
 
@@ -124,9 +124,9 @@ export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
           ) : null}
           <Link
             href="/ai"
-            className="group flex items-center gap-2 rounded-full bg-electric px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white shadow-glowsm transition hover:bg-[#c00500] focus:outline-none focus-visible:ring-2 focus-visible:ring-electric xl:px-5 xl:text-[12px]"
+            className="group flex items-center gap-2 rounded-full bg-electric px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white transition hover:bg-[#c00500] focus:outline-none focus-visible:ring-2 focus-visible:ring-electric xl:px-5 xl:text-[12px]"
           >
-            <Sparkles size={13} strokeWidth={2.5} className="transition-transform duration-300 group-hover:scale-125" />
+            <Asterisk size={14} strokeWidth={2.5} className="transition-transform duration-300 group-hover:rotate-90" />
             FRANCIS AI
             <ArrowUpRight size={13} strokeWidth={2.5} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </Link>
@@ -172,9 +172,9 @@ export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
             <Link
               href="/ai"
               onClick={() => setOpen(false)}
-              className="mt-2 flex items-center gap-3 rounded-full bg-electric px-8 py-4 font-display text-lg font-bold text-white shadow-glow"
+              className="mt-2 flex items-center gap-3 rounded-full bg-electric px-8 py-4 font-display text-lg font-bold text-white"
             >
-              <Sparkles size={18} /> Ask FRANCIS AI <ArrowUpRight size={18} />
+              <Asterisk size={18} /> Ask FRANCIS AI <ArrowUpRight size={18} />
             </Link>
           </div>
         </div>

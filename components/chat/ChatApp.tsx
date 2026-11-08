@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
-  Sparkles, User, Globe2, Code2, Plus, PanelLeftClose, PanelLeftOpen, Menu, X,
+  Asterisk, User, Globe2, Code2, Plus, PanelLeftClose, PanelLeftOpen, Menu, X,
   SendHorizontal, Square, Paperclip, Trash2, Check, FileText, Loader2, Pencil,
   Copy, RefreshCw, MessageSquare, AlertTriangle, ExternalLink, ArrowLeft, Bot,
 } from 'lucide-react';
@@ -24,8 +24,8 @@ interface ChatMessage {
 interface AiStatus { enabled: boolean; configured: boolean; mode?: 'online' | 'local'; welcome: string | null; uploads: string[] }
 interface AttachedDoc { id: string; name: string; chars: number }
 
-const MODES: Array<{ id: ChatMode; label: string; hint: string; icon: typeof Sparkles }> = [
-  { id: 'general', label: 'General', hint: 'Anything on the mind — science, writing, life, tech', icon: Sparkles },
+const MODES: Array<{ id: ChatMode; label: string; hint: string; icon: typeof Asterisk }> = [
+  { id: 'general', label: 'General', hint: 'Anything on the mind — science, writing, life, tech', icon: Asterisk },
   { id: 'portfolio', label: 'Portfolio', hint: "Francis, NEXORA and this platform", icon: User },
   { id: 'research', label: 'Research', hint: 'Live web results with clickable citations', icon: Globe2 },
   { id: 'programming', label: 'Programming', hint: 'Code, debug, explain — Java, Python, C, C++, JS, React…', icon: Code2 },
@@ -358,7 +358,7 @@ export default function ChatApp() {
                   title={m.hint}
                   className={cn(
                     'flex items-center gap-2 rounded-xl border px-3 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] transition',
-                    active ? 'border-electric bg-electric text-white shadow-glowsm' : 'border-navy/10 bg-mist text-navy/70 hover:border-electric/50 hover:text-navy'
+                    active ? 'border-electric bg-electric text-white' : 'border-navy/10 bg-mist text-navy/70 hover:border-electric/50 hover:text-navy'
                   )}
                 >
                   <Icon size={13} strokeWidth={2.2} /> {m.label}
@@ -472,7 +472,7 @@ export default function ChatApp() {
                   <button
                     key={prompt.label}
                     onClick={() => { setMode(prompt.mode); void send(prompt.text); }}
-                    className="group rounded-2xl border border-navy/10 bg-white px-4 py-3.5 text-left text-[12.5px] font-semibold leading-5 text-navy shadow-sm transition hover:-translate-y-0.5 hover:border-electric hover:shadow-glowsm"
+                    className="group rounded-2xl border border-navy/10 bg-white px-4 py-3.5 text-left text-[12.5px] font-semibold leading-5 text-navy shadow-sm transition hover:-translate-y-0.5 hover:border-electric hover:shadow-none"
                   >
                     <span className="mb-1 block font-mono text-[8.5px] uppercase tracking-[0.3em] text-electric">{prompt.mode}</span>
                     {prompt.label}

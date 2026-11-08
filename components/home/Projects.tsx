@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Check, ExternalLink, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Check, ExternalLink, Asterisk } from 'lucide-react';
 import { SceneTag } from './SceneTag';
 import type { Project } from '@/lib/types';
 
@@ -76,7 +76,7 @@ export function Projects({ projects }: { projects: Project[] }) {
 
               <div className="mt-2 flex flex-wrap items-center gap-3">
                 {featured.live_url && (
-                  <a href={featured.live_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-electric px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.2em] text-white shadow-glowsm transition hover:bg-[#c00500]">
+                  <a href={featured.live_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-electric px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-[#c00500]">
                     Visit live <ExternalLink size={14} strokeWidth={2.5} />
                   </a>
                 )}
@@ -113,7 +113,7 @@ export function Projects({ projects }: { projects: Project[] }) {
         )}
 
         <p className="mt-10 flex items-center justify-center gap-2 text-center font-mono text-[10px] uppercase tracking-[0.35em] text-skylight/40">
-          <Sparkles size={11} /> More projects in the studio pipeline — ask FRANCIS AI
+          <Asterisk size={11} /> More projects in the studio pipeline — ask FRANCIS AI
         </p>
       </div>
     </section>

@@ -7,7 +7,7 @@ export function ExperienceAchievements({ experience, achievements }: { experienc
     <section id="experience" className="bg-white py-24 sm:py-32" aria-label="Experience and achievements">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SceneTag index="06" label="Experience & Achievements" />
-        <h2 className="display-tight mt-5 text-4xl font-bold text-navy sm:text-6xl">The ledger<br />of <span className="shimmer-text">proof.</span></h2>
+        <h2 className="display-tight mt-5 text-4xl font-bold text-navy sm:text-6xl">The ledger<br />of <span className="accent-serif">proof.</span></h2>
 
         <div className="mt-14 grid gap-8 lg:grid-cols-2">
           {/* Experience column */}

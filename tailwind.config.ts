@@ -13,13 +13,12 @@ const config: Config = {
         royaldeep: '#17171A',
       },
       fontFamily: {
+        serif: ['"Fraunces Variable"', 'Fraunces', 'Georgia', 'serif'],
         display: ['"Space Grotesk Variable"', '"Space Grotesk"', 'system-ui', 'sans-serif'],
         body: ['"Inter Variable"', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       boxShadow: {
-        glow: '0 0 60px rgba(225,6,0, 0.35)',
-        glowsm: '0 0 24px rgba(225,6,0, 0.28)',
         card: '0 24px 60px -18px rgba(10,10,12, 0.25)',
         glass: '0 8px 40px rgba(10,10,12, 0.12)',
       },
@@ -32,13 +31,11 @@ const config: Config = {
       animation: {
         'float-slow': 'float 9s ease-in-out infinite',
         'spin-slower': 'spin 22s linear infinite',
-        shimmer: 'shimmer 2.6s linear infinite',
         'pulse-dot': 'pulseDot 1.6s ease-in-out infinite',
         marquee: 'marquee 26s linear infinite',
       },
       keyframes: {
         float: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-18px)' } },
-        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
         pulseDot: { '0%,100%': { opacity: '1', transform: 'scale(1)' }, '50%': { opacity: '.45', transform: 'scale(.78)' } },
         marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
       },

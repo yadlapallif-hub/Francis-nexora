@@ -131,7 +131,7 @@ function KineticSlide({
         <div className="overflow-hidden px-2 pb-3">
           <motion.h2
             aria-label={slide.word}
-            className="display-tight whitespace-nowrap font-display text-[clamp(3.6rem,15.5vw,12rem)] font-bold leading-[0.95] tracking-tight will-change-transform"
+            className="display-tight whitespace-nowrap text-[clamp(3.6rem,15.5vw,12rem)] leading-[0.97] will-change-transform"
             style={{
               y,
               opacity: wordOpacity,
@@ -183,7 +183,7 @@ export function KineticSlides() {
           >
             <p className="font-mono text-[9px] font-bold uppercase tracking-[0.4em] text-[#E10600]">{slide.micro}</p>
             <p
-              className="display-tight mt-3 font-display text-[clamp(3rem,13vw,9rem)] font-bold leading-[0.95]"
+              className="display-tight mt-3 text-[clamp(3rem,13vw,9rem)] leading-[0.97]"
               style={{ color: slide.wordColor === 'transparent' ? '#F5F5F4' : slide.wordColor, WebkitTextStroke: slide.stroke }}
             >
               {slide.word}

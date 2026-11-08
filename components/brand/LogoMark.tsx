@@ -29,12 +29,12 @@ export function LogoMark({ className, mono = false }: { className?: string; mono
   );
 }
 
-export function Wordmark({ className, light = false, multi = false }: { className?: string; light?: boolean; multi?: boolean }) {
+export function Wordmark({ className, light = false }: { className?: string; light?: boolean }) {
   return (
     <span
       className={cn(
         'font-display text-xl font-bold leading-none tracking-[0.08em]',
-        multi ? (light ? 'shimmer-multi' : 'shimmer-multi-dark') : light ? 'text-white' : 'text-navy',
+        light ? 'text-white' : 'text-navy',
         className
       )}
     >

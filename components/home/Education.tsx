@@ -12,7 +12,7 @@ export function Education({ education }: { education: EducationItem[] }) {
         <SceneTag index="04" label="Education" />
         <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
           <h2 className="display-tight text-4xl font-bold text-navy sm:text-6xl">
-            Learning in<br /><span className="shimmer-text">public.</span>
+            Learning in<br /><span className="accent-serif">public.</span>
           </h2>
           <p className="max-w-xs font-mono text-[10px] uppercase leading-5 tracking-[0.25em] text-ink/40">
             Education.log // updated from the control studio

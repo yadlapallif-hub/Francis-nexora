@@ -33,7 +33,7 @@ export function About({ sections, profile }: { sections: AboutSection[]; profile
                 <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-skylight/80">{profile.title}</p>
               </div>
             </div>
-            <div className="absolute -right-4 top-8 rotate-3 rounded-2xl bg-navy px-4 py-2.5 shadow-glowsm">
+            <div className="absolute -right-4 top-8 rotate-3 rounded-2xl bg-navy px-4 py-2.5">
               <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-skylight/70">Diploma</p>
               <p className="text-xs font-bold text-white">Computer Engineering</p>
             </div>
@@ -60,7 +60,7 @@ export function About({ sections, profile }: { sections: AboutSection[]; profile
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ delay: i * 0.12, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-                className="card-outline group rounded-2xl border border-navy/8 bg-mist p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-electric/40 hover:shadow-glowsm"
+                className="card-outline group rounded-2xl border border-navy/8 bg-mist p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-electric/40"
               >
                 <p className="font-mono text-[9px] uppercase tracking-[0.35em] text-electric">{section.pillar ?? 'Profile'}</p>
                 <h3 className="mt-2 font-display text-lg font-bold text-navy group-hover:text-electric transition-colors">{section.title}</h3>

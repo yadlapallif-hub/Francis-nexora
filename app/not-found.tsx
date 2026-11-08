@@ -23,7 +23,7 @@ export default function NotFound() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/"
-            className="rounded-full bg-electric px-7 py-3 text-sm font-semibold text-white shadow-glowsm transition hover:bg-[#c00500] focus:outline-none focus:ring-2 focus:ring-skylight"
+            className="rounded-full bg-electric px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#c00500] focus:outline-none focus:ring-2 focus:ring-skylight"
           >
             Back to FRANCIS
           </Link>

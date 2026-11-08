@@ -23,7 +23,7 @@ export function Skills({ skills }: { skills: Skill[] }) {
           <div>
             <SceneTag index="03" label="Technical Skills" />
             <h2 className="display-tight mt-5 text-4xl font-bold text-navy sm:text-6xl">
-              Tools of<br />the <span className="shimmer-text">craft.</span>
+              Tools of<br />the <span className="accent-serif">craft.</span>
             </h2>
           </div>
           <p className="max-w-xs text-sm leading-6 text-ink/65">

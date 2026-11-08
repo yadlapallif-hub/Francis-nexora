@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, MapPin, Sparkles, ExternalLink } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, MapPin, Asterisk, ExternalLink } from 'lucide-react';
 import { HeroCanvas } from '@/components/three/HeroCanvas';
 import { MagneticButton } from '@/components/fx/MagneticButton';
 import type { HomepageSettings, Profile } from '@/lib/types';
@@ -37,7 +37,7 @@ export function Hero({ homepage, profile, nexoraLiveUrl }: { homepage: HomepageS
           {homepage.heroEyebrow}
         </motion.p>
 
-        <h1 className="display-tight mt-5 font-bold text-white" aria-label={lines.join(' ')}>
+        <h1 className="display-tight mt-5 text-white" aria-label={lines.join(' ')}>
           {lines.map((line, i) => (
             <span key={i} className="block overflow-hidden pb-1">
               <motion.span
@@ -77,13 +77,13 @@ export function Hero({ homepage, profile, nexoraLiveUrl }: { homepage: HomepageS
             className="flex shrink-0 flex-wrap items-center gap-3"
           >
             <MagneticButton href="#work" ariaLabel="Explore the work">
-              <span className="inline-flex items-center rounded-full bg-electric px-6 py-3.5 text-[13px] font-bold uppercase tracking-[0.18em] text-white shadow-glowsm transition-colors hover:bg-[#c00500]">
+              <span className="inline-flex items-center rounded-full bg-electric px-6 py-3.5 text-[13px] font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-[#c00500]">
                 {homepage.ctaPrimary}
               </span>
             </MagneticButton>
             <MagneticButton href="/ai" ariaLabel="Ask FRANCIS AI" strength={22}>
               <span className="inline-flex items-center gap-2 rounded-full border border-skylight/30 bg-white/5 px-6 py-3.5 text-[13px] font-bold uppercase tracking-[0.18em] text-skylight backdrop-blur transition-colors hover:border-skylight/60 hover:text-white">
-                <Sparkles size={14} /> {homepage.ctaSecondary}
+                <Asterisk size={15} /> {homepage.ctaSecondary}
               </span>
             </MagneticButton>
           </motion.div>
@@ -115,8 +115,7 @@ export function Hero({ homepage, profile, nexoraLiveUrl }: { homepage: HomepageS
           aria-label="Open NEXORA AGENT live"
         >
           <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-xl border border-electric/40 bg-electric/15">
-            <span className="absolute inset-0 animate-pulse bg-[radial-gradient(circle,rgba(225,6,0,0.45),transparent_70%)]" />
-            <span className="relative h-3.5 w-3.5 rounded-sm bg-electric shadow-glowsm" />
+            <span className="relative h-3.5 w-3.5 rounded-sm bg-electric" />
           </span>
           <span>
             <span className="block font-mono text-[9px] uppercase tracking-[0.35em] text-electric">Live — NEXORA AGENT</span>

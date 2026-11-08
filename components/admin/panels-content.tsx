@@ -68,7 +68,7 @@ export function OverviewPanel({ onNavigate }: { onNavigate: (section: string) =>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {cards.map(({ label, value, icon: Icon, section, accent }) => (
               <button key={label} onClick={() => onNavigate(section)}
-                className={cn('group rounded-2xl border border-navy/10 bg-mist p-4 text-left transition hover:-translate-y-0.5 hover:border-electric hover:shadow-glowsm', accent && 'border-electric/50 bg-skylight')}>
+                className={cn('group rounded-2xl border border-navy/10 bg-mist p-4 text-left transition hover:-translate-y-0.5 hover:border-electric', accent && 'border-electric/50 bg-skylight')}>
                 <Icon size={17} className="text-electric" />
                 <p className="mt-3 font-display text-3xl font-bold text-navy">{value ?? 0}</p>
                 <p className="mt-0.5 text-[10px] font-bold uppercase tracking-[0.2em] text-ink/55">{label}</p>

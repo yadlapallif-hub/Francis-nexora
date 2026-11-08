@@ -52,14 +52,14 @@ export function Contact({ profile, socials }: { profile: Profile; socials: Socia
         <div className="lg:col-span-5">
           <SceneTag index="07" label="Contact" />
           <h2 className="display-tight mt-5 text-4xl font-bold text-navy sm:text-6xl">
-            Let&rsquo;s build<br />something<br /><span className="shimmer-text">meaningful.</span>
+            Let&rsquo;s build<br />something<br /><span className="accent-serif">meaningful.</span>
           </h2>
           <p className="mt-6 max-w-md text-[15px] leading-7 text-ink/75">
             Internships, collaborations, freelance micro-projects, open source, or just a sharp conversation about AI — the inbox is open.
           </p>
 
           <div className="mt-8 space-y-4 text-sm">
-            <a href={mailto} className="flex items-center gap-4 rounded-2xl border border-navy/8 bg-white p-4 transition hover:border-electric/40 hover:shadow-glowsm">
+            <a href={mailto} className="flex items-center gap-4 rounded-2xl border border-navy/8 bg-white p-4 transition hover:border-electric/40">
               <span className="grid h-11 w-11 place-items-center rounded-xl bg-navy text-skylight"><Mail size={18} /></span>
               <span>
                 <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-ink/45">Direct email</span>

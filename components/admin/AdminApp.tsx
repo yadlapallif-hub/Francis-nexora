@@ -127,7 +127,7 @@ export default function AdminApp() {
                     aria-current={isActive ? 'page' : undefined}
                     className={cn(
                       'flex w-full items-center gap-3 rounded-xl px-3 py-2 text-[11px] font-semibold tracking-wide transition',
-                      isActive ? 'bg-electric text-white shadow-glowsm' : 'text-skylight/70 hover:bg-white/5 hover:text-white'
+                      isActive ? 'bg-electric text-white' : 'text-skylight/70 hover:bg-white/5 hover:text-white'
                     )}
                   >
                     <Icon size={15} strokeWidth={2} className="shrink-0" />

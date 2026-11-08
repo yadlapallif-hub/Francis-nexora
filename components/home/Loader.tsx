@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 /**
  * SCENE 01 — Cinematic intro (light edition). Ivory blackout plate, red HUD
- * brackets, orbiting dash ring, multicolour FRANCIS wordmark — with the
+ * brackets, orbiting dash ring, solid ink FRANCIS wordmark — with the
  * M4 grunge poster presented as a framed cover-car plate on the right.
  * ~2.6s total. Reduced-motion users skip instantly.
  */
@@ -99,7 +99,7 @@ export function Loader() {
                 <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(225,6,0,0.9)" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="70 400" opacity="0.95" />
               </svg>
               {/* Core emblem — black squircle, red F */}
-              <svg width="100" height="100" viewBox="0 0 64 64" className="relative drop-shadow-[0_18px_38px_rgba(225,6,0,0.35)]" role="img" aria-label="FRANCIS emblem">
+              <svg width="100" height="100" viewBox="0 0 64 64" className="relative" role="img" aria-label="FRANCIS emblem">
                 <defs>
                   <linearGradient id="f-grad-light" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0" stopColor="#FF3D2E" />
@@ -131,7 +131,7 @@ export function Loader() {
               </svg>
             </div>
 
-            {/* Wordmark — black multicolour sweep + red dot */}
+            {/* Wordmark — solid ink, red dot */}
             <div className="relative mt-6 overflow-hidden text-center lg:text-left">
               <motion.h1
                 initial={{ y: 84, opacity: 0 }}
@@ -139,7 +139,7 @@ export function Loader() {
                 transition={{ delay: 0.62, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="display-tight whitespace-nowrap text-6xl font-bold tracking-tight sm:text-7xl xl:text-8xl"
               >
-                <span className="shimmer-multi-dark">FRANCIS</span>
+                <span className="text-[#0A0A0C]">FRANCIS</span>
                 <span className="text-electric">.</span>
               </motion.h1>
             </div>
