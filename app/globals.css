@@ -14,6 +14,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Anchored scenes clear the fixed header when navigated to */
+section[id] {
+  scroll-margin-top: 76px;
+}
+
 body {
   background: #ffffff;
   color: var(--ink);
