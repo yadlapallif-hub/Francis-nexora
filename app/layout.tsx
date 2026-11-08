@@ -25,16 +25,16 @@ export async function generateMetadata(): Promise<Metadata> {
       title: seo.title,
       description: seo.description,
       siteName: 'FRANCIS',
-      images: [{ url: '/images/seaside.jpg', width: 1440, height: 1080, alt: 'FRANCIS — Think. Create. Build. Innovate.' }],
+      images: [{ url: '/images/hero-backdrop.jpg', width: 1600, height: 900, alt: 'FRANCIS — Think. Create. Build. Innovate.' }],
     },
-    twitter: { card: 'summary_large_image', title: seo.title, description: seo.description, images: ['/images/seaside.jpg'] },
+    twitter: { card: 'summary_large_image', title: seo.title, description: seo.description, images: ['/images/hero-backdrop.jpg'] },
     robots: { index: true, follow: true },
     icons: { icon: '/icon.svg' },
   };
 }
 
 export const viewport: Viewport = {
-  themeColor: '#062A3A',
+  themeColor: '#0A0A0C',
   width: 'device-width',
   initialScale: 1,
 };
@@ -42,7 +42,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-[#F2F7F7] text-ink antialiased">{children}</body>
+      <body className="bg-white text-ink antialiased">{children}</body>
     </html>
   );
 }

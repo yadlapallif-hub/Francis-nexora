@@ -54,7 +54,7 @@ export function Skills({ skills }: { skills: Skill[] }) {
                     </div>
                     <div className="h-[7px] overflow-hidden rounded-full bg-skylight" role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={skill.level} aria-label={`${skill.name} proficiency`}>
                       <motion.div
-                        className="h-full rounded-full bg-gradient-to-r from-electric via-[#ef4444] to-[#7FE3EC]"
+                        className="h-full rounded-full bg-gradient-to-r from-electric via-[#ef4444] to-[#ff8a7a]"
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.level}%` }}
                         viewport={{ once: true, margin: '-40px' }}

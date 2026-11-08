@@ -64,13 +64,13 @@ export function SceneDots() {
                 isActive && 'opacity-100 translate-x-0'
               )}
             >
-              <span className="text-[#3AD2DE]">{scene.index}</span> · {scene.label}
+              <span className="text-[#ff5a3c]">{scene.index}</span> · {scene.label}
             </span>
             <span
               className={cn(
                 'block rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
                 isActive
-                  ? 'h-6 w-[5px] bg-[#0E8A9C] shadow-[0_0_14px_rgba(14,138,156,0.9)]'
+                  ? 'h-6 w-[5px] bg-[#e10600] shadow-[0_0_14px_rgba(225,6,0,0.9)]'
                   : 'h-[5px] w-[5px] bg-white/55 mix-blend-difference group-hover:bg-white group-hover:shadow-[0_0_10px_rgba(255,255,255,0.6)]'
               )}
             />

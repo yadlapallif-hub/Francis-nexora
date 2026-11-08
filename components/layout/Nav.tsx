@@ -74,7 +74,7 @@ export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
     <header
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-all duration-500',
-        scrolled ? 'border-b border-navy/5 bg-white/75 shadow-[0_10px_40px_-20px_rgba(6,42,58,0.35)] backdrop-blur-xl' : 'bg-transparent'
+        scrolled ? 'border-b border-navy/5 bg-white/75 shadow-[0_10px_40px_-20px_rgba(10,10,12,0.35)] backdrop-blur-xl' : 'bg-transparent'
       )}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 sm:px-8" aria-label="Primary">
@@ -124,7 +124,7 @@ export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
           ) : null}
           <Link
             href="/ai"
-            className="group flex items-center gap-2 rounded-full bg-electric px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white shadow-glowsm transition hover:bg-[#0B6E7D] focus:outline-none focus-visible:ring-2 focus-visible:ring-electric xl:px-5 xl:text-[12px]"
+            className="group flex items-center gap-2 rounded-full bg-electric px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white shadow-glowsm transition hover:bg-[#c00500] focus:outline-none focus-visible:ring-2 focus-visible:ring-electric xl:px-5 xl:text-[12px]"
           >
             <Sparkles size={13} strokeWidth={2.5} className="transition-transform duration-300 group-hover:scale-125" />
             FRANCIS AI
@@ -145,7 +145,7 @@ export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
       {/* Cinematic scroll rail — fills as you move through the scenes */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[2.5px] origin-left bg-gradient-to-r from-[#0E8A9C] via-[#3AD2DE] to-[#E4D5B4]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[2.5px] origin-left bg-gradient-to-r from-[#e10600] via-[#ff8a00] to-[#ffd23f]"
         style={{ scaleX }}
       />
 

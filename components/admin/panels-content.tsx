@@ -156,7 +156,7 @@ export function ProfilePanel() {
     <PanelCard
       title="Profile Editor"
       description="Identity shown across the hero, about, footer, contact, resume button and FRANCIS AI's approved knowledge."
-      actions={<button onClick={save} className="inline-flex items-center gap-2 rounded-xl bg-electric px-5 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-[#0B6E7D]">{saving ? <Loader2 size={13} className="animate-spin" /> : <Save size={13} />} Save profile</button>}
+      actions={<button onClick={save} className="inline-flex items-center gap-2 rounded-xl bg-electric px-5 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-[#c00500]">{saving ? <Loader2 size={13} className="animate-spin" /> : <Save size={13} />} Save profile</button>}
     >
       {error && <p role="alert" className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-[12px] text-red-700">{error}</p>}
       {flash && <p className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-[12px] font-semibold text-emerald-800">Saved. The public site now reflects these details.</p>}

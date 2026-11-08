@@ -7,7 +7,7 @@ import type { EducationItem } from '@/lib/types';
 
 export function Education({ education }: { education: EducationItem[] }) {
   return (
-    <section id="education" className="relative bg-[#F2F7F7] py-24 sm:py-32" aria-label="Education">
+    <section id="education" className="relative bg-white py-24 sm:py-32" aria-label="Education">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SceneTag index="04" label="Education" />
         <div className="mt-5 flex flex-wrap items-end justify-between gap-6">

@@ -8,7 +8,7 @@ export default function NotFound() {
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(14,138,156,0.32),transparent_65%)]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(225,6,0,0.32),transparent_65%)]"
         aria-hidden="true"
       />
       <div className="relative flex max-w-lg flex-col items-center px-6 text-center">
@@ -23,7 +23,7 @@ export default function NotFound() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/"
-            className="rounded-full bg-electric px-7 py-3 text-sm font-semibold text-white shadow-glowsm transition hover:bg-[#0B6E7D] focus:outline-none focus:ring-2 focus:ring-skylight"
+            className="rounded-full bg-electric px-7 py-3 text-sm font-semibold text-white shadow-glowsm transition hover:bg-[#c00500] focus:outline-none focus:ring-2 focus:ring-skylight"
           >
             Back to FRANCIS
           </Link>

@@ -21,7 +21,7 @@ export default async function HomePage() {
   const nexora = data.projects.find((p) => p.slug === 'nexora-agent');
 
   return (
-    <main id="francis-root" className="bg-[#F2F7F7]">
+    <main id="francis-root" className="bg-white">
       <Loader />
       <Nav resumeUrl={data.profile.resume_url} />
       <SceneDots />

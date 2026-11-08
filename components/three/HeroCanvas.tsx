@@ -5,7 +5,7 @@ import * as THREE from 'three';
 
 /**
  * Cinematic hero canvas: floating faceted crystal (icosahedron), orbiting
- * satellite, and a drifting particle field — seafoam and foam-white light over deep sea-teal.
+ * satellite, and a drifting particle field — racing red and silver over deep black.
  * Automatically disabled for reduced-motion users and small screens.
  */
 export function HeroCanvas({ className }: { className?: string }) {
@@ -31,26 +31,26 @@ export function HeroCanvas({ className }: { className?: string }) {
     mount.appendChild(renderer.domElement);
 
     // ── Lighting: cinematic key/fill/rim ──
-    const ambient = new THREE.AmbientLight(0x14333F, 1.15);
+    const ambient = new THREE.AmbientLight(0x3a1f1f, 1.15);
     const key = new THREE.DirectionalLight(0xffffff, 1.6);
     key.position.set(4, 5, 6);
-    const rim = new THREE.DirectionalLight(0x3AD2DE, 3.4);
+    const rim = new THREE.DirectionalLight(0xe10600, 3.2);
     rim.position.set(-6, -2, -4);
-    const glowPoint = new THREE.PointLight(0x3AD2DE, 22, 18, 2);
+    const glowPoint = new THREE.PointLight(0xff1e14, 22, 18, 2);
     glowPoint.position.set(0, 0, 0.6);
     scene.add(ambient, key, rim, glowPoint);
 
     // ── Hero object: glass-like faceted crystal ──
     const crystalGeo = new THREE.IcosahedronGeometry(1.55, 1);
     const crystalMat = new THREE.MeshPhysicalMaterial({
-      color: 0x10394A,
+      color: 0x1b1b1f,
       metalness: 0.35,
       roughness: 0.12,
       transmission: 0.55,
       thickness: 1.6,
       clearcoat: 1,
       clearcoatRoughness: 0.18,
-      emissive: 0x062A3A,
+      emissive: 0x2b0503,
       emissiveIntensity: 0.85,
       flatShading: true,
     });
@@ -61,7 +61,7 @@ export function HeroCanvas({ className }: { className?: string }) {
     // Glowing core inside the crystal
     const core = new THREE.Mesh(
       new THREE.IcosahedronGeometry(0.72, 0),
-      new THREE.MeshBasicMaterial({ color: 0x3AD2DE, transparent: true, opacity: 0.95 })
+      new THREE.MeshBasicMaterial({ color: 0xff5a3c, transparent: true, opacity: 0.95 })
     );
     core.position.copy(crystal.position);
     scene.add(core);
@@ -70,12 +70,12 @@ export function HeroCanvas({ className }: { className?: string }) {
     const orbitGroup = new THREE.Group();
     const ring = new THREE.Mesh(
       new THREE.TorusGeometry(3.05, 0.012, 8, 96),
-      new THREE.MeshBasicMaterial({ color: 0x3AD2DE, transparent: true, opacity: 0.55 })
+      new THREE.MeshBasicMaterial({ color: 0xe10600, transparent: true, opacity: 0.5 })
     );
     ring.rotation.x = Math.PI / 2.35;
     const satellite = new THREE.Mesh(
       new THREE.OctahedronGeometry(0.22, 0),
-      new THREE.MeshStandardMaterial({ color: 0xF2F7F7, emissive: 0x3AD2DE, emissiveIntensity: 1.7, roughness: 0.3, metalness: 0.2 })
+      new THREE.MeshStandardMaterial({ color: 0xf5f5f4, emissive: 0xe10600, emissiveIntensity: 1.6, roughness: 0.3, metalness: 0.2 })
     );
     orbitGroup.add(ring, satellite);
     scene.add(orbitGroup);
@@ -94,7 +94,7 @@ export function HeroCanvas({ className }: { className?: string }) {
     const particleGeo = new THREE.BufferGeometry();
     particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const particleMat = new THREE.PointsMaterial({
-      color: 0xB9E9EC,
+      color: 0xffb3a6,
       size: 0.045,
       transparent: true,
       opacity: 0.85,
