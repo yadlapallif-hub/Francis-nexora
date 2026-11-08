@@ -13,12 +13,23 @@ export function Closing() {
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[640px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(225,6,0,0.3),transparent_68%)]" />
       <div className="relative flex w-full flex-col items-center px-5">
         <p className="font-mono text-[10px] font-medium uppercase tracking-[0.5em] text-electric sm:text-[11px]">Final cut</p>
-        <h2 className="display-tight mt-6 text-[clamp(4.5rem,19vw,13rem)] font-bold leading-none text-white">
-          FRANCIS<span className="text-electric">.</span>
+        <h2 className="display-tight mt-6 text-[clamp(4.5rem,19vw,13rem)] font-bold leading-none">
+          <span className="shimmer-multi">FRANCIS</span><span className="text-electric">.</span>
         </h2>
         <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.42em] text-skylight/65 sm:text-xs">
           Think · Create · Build · Innovate
         </p>
+        <motion.img
+          src="/images/francis-portrait.jpg"
+          alt="Yadlapalli Francis"
+          width={96}
+          height={96}
+          initial={{ opacity: 0, scale: 0.7, rotate: -4 }}
+          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: reduce ? 0 : 0.35, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-8 h-24 w-24 rounded-2xl border border-white/15 object-cover object-top shadow-[0_0_40px_rgba(225,6,0,0.35)]"
+        />
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

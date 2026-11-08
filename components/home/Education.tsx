@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import { GraduationCap, CheckCircle2, BookOpen } from 'lucide-react';
 import { SceneTag } from './SceneTag';
 import type { EducationItem } from '@/lib/types';
@@ -17,7 +20,7 @@ export function Education({ education }: { education: EducationItem[] }) {
         </div>
 
         <ol className="relative mt-16 max-w-4xl border-l-2 border-skylight pl-8 sm:pl-14">
-          {education.map((item) => {
+          {education.map((item, index) => {
             const current = (item.status ?? '').toLowerCase().includes('pursu');
             return (
               <li key={item.id} className="group relative pb-12 last:pb-0">
@@ -27,7 +30,7 @@ export function Education({ education }: { education: EducationItem[] }) {
                 >
                   {current && <span className="h-2 w-2 animate-pulse-dot rounded-full bg-electric sm:h-2.5 sm:w-2.5" />}
                 </span>
-                <div className="card-outline rounded-2xl border border-navy/8 bg-mist p-6 transition-all duration-300 group-hover:border-electric/35 sm:p-7">
+                <motion.div initial={{ opacity: 0, x: index % 2 === 0 ? -64 : 64 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }} className="card-outline rounded-2xl border border-navy/8 bg-mist p-6 transition-all duration-300 group-hover:border-electric/35 sm:p-7">
                   <div className="flex flex-wrap items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
                       <span className="grid h-14 w-14 place-items-center rounded-2xl bg-navy p-3.5 text-skylight">
@@ -49,7 +52,7 @@ export function Education({ education }: { education: EducationItem[] }) {
                   </div>
                   {item.field && <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.22em] text-electric">{item.field}</p>}
                   {item.description && <p className="mt-2 max-w-2xl text-[14px] leading-6 text-ink/75">{item.description}</p>}
-                </div>
+                </motion.div>
               </li>
             );
           })}

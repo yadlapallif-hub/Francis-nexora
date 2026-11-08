@@ -21,7 +21,7 @@ interface ChatMessage {
   sources?: Source[] | null;
   pending?: boolean;
 }
-interface AiStatus { enabled: boolean; configured: boolean; welcome: string | null; uploads: string[] }
+interface AiStatus { enabled: boolean; configured: boolean; mode?: 'online' | 'local'; welcome: string | null; uploads: string[] }
 interface AttachedDoc { id: string; name: string; chars: number }
 
 const MODES: Array<{ id: ChatMode; label: string; hint: string; icon: typeof Sparkles }> = [
@@ -415,10 +415,10 @@ export default function ChatApp() {
         </div>
 
         <div className="border-t border-navy/8 px-4 py-3">
-          <div className="flex items-center gap-2.5">
-            <span className={cn('h-2 w-2 rounded-full', status?.enabled && status?.configured ? 'bg-emerald-500' : 'bg-amber-500')} />
+          <div className="flex items-center gap-2.5" title={status?.configured ? 'Cloud AI connected via OPENAI_API_KEY' : 'Built-in local engine active — add OPENAI_API_KEY in Vercel for full cloud intelligence'}>
+            <span className={cn('h-2 w-2 rounded-full', status?.enabled ? (status?.configured ? 'bg-emerald-500' : 'bg-[#ff8a00] animate-pulse-dot') : 'bg-red-500')} />
             <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-ink/55">
-              {status?.enabled && status?.configured ? 'FRANCIS AI online' : 'AI needs setup'}
+              {status?.enabled ? (status?.configured ? 'FRANCIS AI online' : 'FRANCIS AI — local mode') : 'AI disabled'}
             </p>
           </div>
         </div>

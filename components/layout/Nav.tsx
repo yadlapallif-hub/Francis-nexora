@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, ArrowUpRight, FileText, Sparkles } from 'lucide-react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { LogoMark, Wordmark } from '@/components/brand/LogoMark';
 import { cn } from '@/lib/cn';
 
@@ -16,6 +17,8 @@ const LINKS = [
 export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 28, restDelta: 0.001 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -44,7 +47,7 @@ export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
         <Link href="/" className="group flex items-center gap-3 outline-none focus-visible:ring-2 focus-visible:ring-electric rounded-xl">
           <LogoMark className="h-9 w-9 transition-transform duration-500 group-hover:rotate-6" />
           <span className="hidden sm:block">
-            <Wordmark light={light} className="transition-colors duration-500" />
+            <Wordmark light={light} multi className="transition-colors duration-500" />
           </span>
         </Link>
 
@@ -93,6 +96,13 @@ export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </nav>
+
+      {/* Cinematic scroll rail — fills as you move through the 9 scenes */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[2.5px] origin-left bg-gradient-to-r from-[#e10600] via-[#ff8a00] to-[#ffd23f]"
+        style={{ scaleX }}
+      />
 
       {/* Mobile panel */}
       {open && (

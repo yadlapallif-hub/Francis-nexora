@@ -30,8 +30,8 @@ export function Projects({ projects }: { projects: Project[] }) {
 
         {featured && (
           <motion.article
-            initial={{ opacity: 0, y: 56 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -88, scale: 0.97 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="glass-dark mt-14 grid overflow-hidden rounded-[28px] lg:grid-cols-12"

@@ -36,11 +36,11 @@ body {
   background: var(--mist);
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
+  background: #E10600;
   border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3;
+  background: #c00500;
 }
 
 /* ── Premium glassmorphism ─────────────────────────────── */
@@ -144,3 +144,38 @@ pre code.hljs { padding: 1.1em 1.25em !important; border-radius: 0 !important; f
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── Multicolour animated wordmark (dark + light backdrops) ── */
+.shimmer-multi {
+  background: linear-gradient(100deg, #ff3d2e 0%, #ff8a00 16%, #ffd23f 30%, #ffffff 45%, #ff5a3c 60%, #e10600 76%, #ff8a00 100%);
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmerMulti 3.4s linear infinite;
+}
+.shimmer-multi-dark {
+  background: linear-gradient(100deg, #e10600 0%, #ff8a00 18%, #b91c1c 34%, #111418 48%, #e10600 66%, #f59e0b 84%, #e10600 100%);
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmerMulti 3.4s linear infinite;
+}
+@keyframes shimmerMulti {
+  0% { background-position: -240% 0; }
+  100% { background-position: 240% 0; }
+}
+
+/* ── Loader HUD scanline ─────────────────────────────────── */
+@keyframes scanline {
+  0% { transform: translateY(-120%); opacity: 0; }
+  18% { opacity: 1; }
+  55% { transform: translateY(1200%); opacity: 1; }
+  100% { opacity: 0; }
+}
+.animate-scanline { animation: scanline 2.3s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+
+/* ── Loader slow orbit ───────────────────────────────────── */
+@keyframes orbitSlow { to { transform: rotate(360deg); } }
+.animate-orbit-slow { animation: orbitSlow 14s linear infinite; }

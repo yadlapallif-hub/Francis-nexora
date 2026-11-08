@@ -1,5 +1,6 @@
 import { getPortfolioData } from '@/lib/content';
 import { Nav } from '@/components/layout/Nav';
+import { SceneDots } from '@/components/layout/SceneDots';
 import { Footer } from '@/components/layout/Footer';
 import { Loader } from '@/components/home/Loader';
 import { Hero } from '@/components/home/Hero';
@@ -23,6 +24,7 @@ export default async function HomePage() {
     <main id="francis-root" className="bg-white">
       <Loader />
       <Nav resumeUrl={data.profile.resume_url} />
+      <SceneDots />
 
       {/* SCENE 02 — Cinematic hero */}
       <Hero homepage={homepage} profile={data.profile} nexoraLiveUrl={nexora?.live_url} />

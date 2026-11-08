@@ -4,6 +4,7 @@ import { getPortfolioData } from '@/lib/content';
 import { webSearch } from '@/lib/ai/search';
 import { buildSystemPrompt, buildFrancisContext, questionNeedsFreshInfo, DEFAULT_PERSONALITY, DEFAULT_WELCOME } from '@/lib/ai/prompts';
 import { checkHourlyLimit, logUsage } from '@/lib/ai/ratelimit';
+import { streamLocalReply } from '@/lib/ai/local';
 import type { ChatMode, SearchSource } from '@/lib/types';
 
 export const runtime = 'nodejs';
@@ -80,10 +81,6 @@ export async function POST(req: NextRequest) {
   const baseUrl = (process.env.OPENAI_BASE_URL ?? 'https://api.openai.com/v1').replace(/\/+$/, '');
   const model = process.env.AI_MODEL || settings.model || 'gpt-4o-mini';
 
-  if (!apiKey) {
-    return jsonError(503, 'ai_not_configured', 'FRANCIS AI is not configured yet. The site owner can activate it by adding OPENAI_API_KEY (or an OpenAI-compatible provider key) to the server environment. No simulated responses are shown.');
-  }
-
   // 3) Hourly rate limit
   const rl = await checkHourlyLimit(ownerToken, settings.hourly_limit ?? 30);
   if (!rl.ok) {
@@ -148,8 +145,9 @@ export async function POST(req: NextRequest) {
     .reverse()
     .map((row) => ({ role: row.role as 'user' | 'assistant' | 'system', content: row.content }));
 
+  const online = Boolean(apiKey);
   const portfolio = await getPortfolioData();
-  const systemPrompt = buildSystemPrompt({
+  const systemPrompt = online ? buildSystemPrompt({
     mode,
     personality: settings.personality || DEFAULT_PERSONALITY,
     francisContext: buildFrancisContext(portfolio),
@@ -157,13 +155,84 @@ export async function POST(req: NextRequest) {
     searchAttempted: searchWanted && Boolean(message),
     documentExcerpt,
     documentName,
-  });
+  }) : '';
 
   const upstreamMessages = [
     { role: 'system' as const, content: systemPrompt },
     ...history,
     ...(message ? [{ role: 'user' as const, content: message }] : []),
   ];
+
+  // 8-local) No cloud key — run the built-in local engine (honest, fully functional)
+  if (!online) {
+    const encoder = new TextEncoder();
+    const sid = sessionId as string;
+    const effectiveMessage =
+      message || [...history].reverse().find((m) => m.role === 'user')?.content || '';
+
+    if (message && !regenerate) {
+      await sb.from('chat_messages').insert({ session_id: sid, role: 'user', content: message, mode });
+    }
+
+    const localStream = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        controller.enqueue(sse({ type: 'meta', sessionId: sid, model: 'francis-local', offline: true }));
+        if (sources.length) controller.enqueue(sse({ type: 'sources', sources }));
+
+        let full = '';
+        try {
+          for await (const token of streamLocalReply({
+            message: effectiveMessage,
+            mode,
+            portfolio,
+            documentExcerpt,
+            documentName,
+            sources,
+            searchAttempted: searchWanted && Boolean(message),
+          })) {
+            full += token;
+            controller.enqueue(sse({ type: 'token', text: token }));
+          }
+          if (full.trim()) {
+            await sb.from('chat_messages').insert({
+              session_id: sid,
+              role: 'assistant',
+              content: full,
+              sources: sources.length ? sources : null,
+              mode,
+            });
+          }
+          await sb.from('chat_sessions').update({ updated_at: new Date().toISOString() }).eq('id', sid);
+          await logUsage({
+            ownerToken,
+            sessionId: sid,
+            mode,
+            tokensIn: Math.ceil((message.length + (documentExcerpt?.length ?? 0)) / 4),
+            tokensOut: Math.ceil(full.length / 4),
+            latencyMs: Date.now() - startedAt,
+            searchUsed: sources.length > 0,
+            error: null,
+          });
+          controller.enqueue(sse({ type: 'done', sessionId: sid, stopped: false }));
+          controller.close();
+        } catch (error) {
+          console.error('[ai] local engine failed:', error);
+          controller.enqueue(sse({ type: 'error', code: 'local_engine_failed', message: 'The local engine stumbled. Please try again.' }));
+          controller.close();
+        }
+      },
+    });
+
+    return new Response(localStream, {
+      status: 200,
+      headers: {
+        'content-type': 'text/event-stream; charset=utf-8',
+        'cache-control': 'no-cache, no-transform',
+        connection: 'keep-alive',
+        'x-accel-buffering': 'no',
+      },
+    });
+  }
 
   // 8) Call the LLM provider (streaming)
   let upstream: globalThis.Response;

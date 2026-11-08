@@ -13,8 +13,8 @@ export function About({ sections, profile }: { sections: AboutSection[]; profile
         {/* Portrait plate */}
         <div className="lg:col-span-4">
           <motion.div
-            initial={{ opacity: 0, y: 48, rotate: -2 }}
-            whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+            initial={{ opacity: 0, x: -84, rotate: -3 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="relative mx-auto max-w-sm"
@@ -56,10 +56,10 @@ export function About({ sections, profile }: { sections: AboutSection[]; profile
             {sections.map((section, i) => (
               <motion.article
                 key={section.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: i % 2 === 0 ? -56 : 56, y: 12 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
-                transition={{ delay: i * 0.12, duration: 0.7 }}
+                transition={{ delay: i * 0.12, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
                 className="card-outline group rounded-2xl border border-navy/8 bg-mist p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-electric/40 hover:shadow-glowsm"
               >
                 <p className="font-mono text-[9px] uppercase tracking-[0.35em] text-electric">{section.pillar ?? 'Profile'}</p>

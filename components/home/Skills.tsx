@@ -33,7 +33,14 @@ export function Skills({ skills }: { skills: Skill[] }) {
 
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {categories.map((group, gi) => (
-            <div key={group.name} className="card-outline rounded-3xl border border-navy/8 bg-white p-6 sm:p-7">
+            <motion.div
+              key={group.name}
+              initial={{ opacity: 0, x: gi % 2 === 0 ? -72 : 72, y: 16 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.8, delay: gi * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="card-outline rounded-3xl border border-navy/8 bg-white p-6 sm:p-7"
+            >
               <div className="flex items-center justify-between">
                 <h3 className="font-display text-base font-bold uppercase tracking-[0.14em] text-navy">{group.name}</h3>
                 <span className="font-mono text-[10px] text-electric">{String(group.items.length).padStart(2, '0')}</span>
@@ -57,7 +64,7 @@ export function Skills({ skills }: { skills: Skill[] }) {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
