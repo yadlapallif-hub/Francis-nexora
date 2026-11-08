@@ -1,4 +1,5 @@
 import 'server-only';
+import { cache } from 'react';
 import { getPublicSupabase } from '@/lib/supabase/public';
 import { FALLBACK_DATA } from '@/lib/fallback';
 import type {
@@ -18,7 +19,7 @@ function unwrap<T>(value: unknown, fallback: T): T {
   return fallback;
 }
 
-export async function getPortfolioData(): Promise<PortfolioData> {
+export const getPortfolioData = cache(async (): Promise<PortfolioData> => {
   const sb = getPublicSupabase();
   if (!sb) return FALLBACK_DATA;
 
@@ -78,4 +79,4 @@ export async function getPortfolioData(): Promise<PortfolioData> {
     console.error('[portfolio] Supabase fetch failed, using fallback content:', error);
     return FALLBACK_DATA;
   }
-}
+});

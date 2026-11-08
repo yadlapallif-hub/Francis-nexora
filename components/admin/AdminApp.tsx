@@ -356,7 +356,7 @@ function FullScreenShell({ children }: { children: React.ReactNode }) {
   return (
     <main className="relative flex h-[100svh] flex-col items-center justify-center overflow-hidden bg-navy text-skylight">
       <div className="pointer-events-none absolute inset-0 bg-hero-grid bg-grid opacity-30" />
-      <div className="pointer-events-none absolute h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(225,6,0,0.25),transparent_68%)]" />
+      <div className="pointer-events-none absolute h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgb(var(--accent-rgb, 225 6 0) / 0.25),transparent_68%)]" />
       <div className="relative flex flex-col items-center">{children}</div>
     </main>
   );

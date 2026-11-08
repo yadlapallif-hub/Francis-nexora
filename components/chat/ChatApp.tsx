@@ -460,7 +460,7 @@ export default function ChatApp() {
           {isEmpty ? (
             <div className="mx-auto flex h-full max-w-3xl flex-col items-center justify-center gap-6 px-5 py-10 text-center">
               <div className="relative">
-                <div className="absolute inset-0 -m-6 rounded-full bg-[radial-gradient(circle,rgba(225,6,0,0.18),transparent_70%)]" />
+                <div className="absolute inset-0 -m-6 rounded-full bg-[radial-gradient(circle,rgb(var(--accent-rgb, 225 6 0) / 0.18),transparent_70%)]" />
                 <LogoMark className="relative h-20 w-20" />
               </div>
               <div>

@@ -8,7 +8,7 @@ export default function NotFound() {
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(225,6,0,0.32),transparent_65%)]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(var(--accent-rgb, 225 6 0) / 0.32),transparent_65%)]"
         aria-hidden="true"
       />
       <div className="relative flex max-w-lg flex-col items-center px-6 text-center">

@@ -41,9 +41,27 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+function hexToRgbComponents(hex: string): string {
+  const m = hex.trim().match(/^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/);
+  if (!m) return '225 6 0';
+  let h = m[1];
+  if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+  const n = parseInt(h, 16);
+  return `${(n >> 16) & 255} ${(n >> 8) & 255} ${n & 255}`;
+}
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const data = await getPortfolioData();
+  const accent = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test((data.settings.theme.accent ?? '').trim())
+    ? data.settings.theme.accent.trim()
+    : '#E10600';
+  const themeStyle = {
+    '--accent': accent.startsWith('#') ? accent : `#${accent}`,
+    '--accent-rgb': hexToRgbComponents(accent),
+  } as React.CSSProperties;
+
   return (
-    <html lang="en">
+    <html lang="en" style={themeStyle}>
       <body className="bg-white text-ink antialiased">
         {children}
         {/* Film grain — fixed, non-interactive, below the loader (z-100) */}

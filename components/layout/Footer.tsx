@@ -20,7 +20,7 @@ export function Footer({ socials, email }: { socials: SocialLink[]; email?: stri
 
   return (
     <footer className="relative overflow-hidden bg-navy text-skylight">
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-96 w-[720px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(225,6,0,0.28),transparent_70%)]" />
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-96 w-[720px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse,rgb(var(--accent-rgb, 225 6 0) / 0.28),transparent_70%)]" />
       <div className="relative mx-auto max-w-7xl px-6 pb-10 pt-16 sm:px-10">
         <div className="flex flex-col items-start justify-between gap-10 border-b border-skylight/10 pb-10 md:flex-row md:items-center">
           <div>

@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 :root {
+  --accent: #E10600;
+  --accent-rgb: 225 6 0;
   --navy: #0A0A0C;
-  --electric: #E10600;
+  --electric: var(--accent);
   --skylight: #F5F5F4;
   --mist: #F6F6F6;
   --ink: #141414;
@@ -41,7 +43,7 @@ body {
   background: var(--mist);
 }
 ::-webkit-scrollbar-thumb {
-  background: #E10600;
+  background: var(--accent);
   border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -89,7 +91,7 @@ body {
   font-style: italic;
   font-weight: 600;
   font-variation-settings: 'opsz' 144;
-  color: #E10600;
+  color: var(--accent);
 }
 
 /* ── Chat markdown ─────────────────────────────────────── */
@@ -106,14 +108,14 @@ body {
 .chat-md ul { list-style: disc; } .chat-md ol { list-style: decimal; }
 .chat-md li { margin: 0.28em 0; }
 .chat-md strong { color: var(--navy); font-weight: 650; }
-.chat-md a { color: var(--electric); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(225,6,0, 0.4); }
+.chat-md a { color: var(--electric); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgb(var(--accent-rgb, 225 6 0) / 0.4); }
 .chat-md a:hover { text-decoration-color: var(--electric); }
 .chat-md code:not(pre code) {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 0.85em;
   background: var(--skylight);
   color: #17171A;
-  border: 1px solid rgba(225,6,0, 0.22);
+  border: 1px solid rgb(var(--accent-rgb, 225 6 0) / 0.22);
   padding: 0.12em 0.42em;
   border-radius: 6px;
 }

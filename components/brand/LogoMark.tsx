@@ -7,12 +7,12 @@ export function LogoMark({ className, mono = false }: { className?: string; mono
         <defs>
           <linearGradient id="lm-ring" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#FF3D2E" />
-            <stop offset="0.5" stopColor="#E10600" />
+            <stop offset="0.5" style={{ stopColor: 'var(--accent)' }} />
             <stop offset="1" stopColor="#8F0B00" />
           </linearGradient>
           <linearGradient id="lm-f" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#FF4A33" />
-            <stop offset="0.55" stopColor="#E10600" />
+            <stop offset="0.55" style={{ stopColor: 'var(--accent)' }} />
             <stop offset="1" stopColor="#A00D00" />
           </linearGradient>
         </defs>

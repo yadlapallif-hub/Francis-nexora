@@ -6,7 +6,7 @@ const config: Config = {
     extend: {
       colors: {
         navy: '#0A0A0C',
-        electric: '#E10600',
+        electric: 'rgb(var(--accent-rgb, 225 6 0) / <alpha-value>)',
         skylight: '#F5F5F4',
         mist: '#F6F6F6',
         ink: '#141414',
@@ -24,7 +24,7 @@ const config: Config = {
       },
       backgroundImage: {
         'hero-grid':
-          'linear-gradient(rgba(225,6,0,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(225,6,0,0.07) 1px, transparent 1px)',
+          'linear-gradient(rgb(var(--accent-rgb, 225 6 0) / 0.07) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--accent-rgb, 225 6 0) / 0.07) 1px, transparent 1px)',
         'radial-fade': 'radial-gradient(ellipse at center, transparent 30%, #0A0A0C 78%)',
       },
       backgroundSize: { grid: '72px 72px' },

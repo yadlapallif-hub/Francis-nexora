@@ -93,8 +93,8 @@ const THEME_DEFAULTS: ThemeSettings = { accent: '#E10600', mode: 'light' };
 /* ═══════════ 12 · THEME EDITOR ═══════════ */
 
 const ACCENTS = [
-  { name: 'Electric Blue', value: '#E10600' },
-  { name: 'Royal Indigo', value: '#c00500' },
+  { name: 'Signature Red', value: '#E10600' },
+  { name: 'Ember Red', value: '#C00500' },
   { name: 'Cyan Pulse', value: '#0891B2' },
   { name: 'Emerald Signal', value: '#059669' },
   { name: 'Crimson Forge', value: '#DC2626' },
@@ -104,7 +104,7 @@ export function ThemePanel() {
   const { editing, patch, loading, busy, flash, error, saveDraft, publish, discard, isDirty } = useEnvelope<ThemeSettings>('theme', THEME_DEFAULTS);
   if (loading || !editing) return <LoadingBox />;
   return (
-    <PanelCard title="Website Theme Editor" description="Accent system for FRANCIS — applied to buttons, highlights, charts and the assistant. Draft first, publish when ready.">
+    <PanelCard title="Website Theme Editor" description="Accent system applied site-wide the moment you publish — every button, highlight, marker and the assistant follow it. Draft first, publish when ready.">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <p className="mb-2 flex items-center gap-2 font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-navy/60"><Palette size={11} /> Accent</p>
@@ -240,7 +240,7 @@ export function SeoPanel() {
         </Field>
         <div className="rounded-2xl border border-navy/10 bg-mist p-4">
           <p className="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-navy/60"><Search size={11} className="mr-1 inline" /> Search preview</p>
-          <p className="mt-2 truncate text-[12px] text-[#E10600]">{editing.title}</p>
+          <p className="mt-2 truncate text-[12px] text-[color:var(--accent)]">{editing.title}</p>
           <p className="text-[11px] text-emerald-800">https://francis-platform.vercel.app</p>
           <p className="mt-0.5 line-clamp-2 text-[11px] leading-5 text-ink/60">{editing.description}</p>
         </div>

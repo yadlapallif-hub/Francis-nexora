@@ -29,7 +29,7 @@ const SLIDES = [
     bg: '#0A0A0C',
     wordColor: 'transparent',
     stroke: '1.6px #F5F5F4',
-    dot: '#E10600',
+    dot: 'var(--accent)',
     ghost: 'rgba(245,245,244,0.05)',
     micro: 'Scene 01 — The Question',
     caption: 'Every build starts with why.',
@@ -41,7 +41,7 @@ const SLIDES = [
     bg: '#FAFAF9',
     wordColor: '#0A0A0C',
     stroke: undefined as string | undefined,
-    dot: '#E10600',
+    dot: 'var(--accent)',
     ghost: 'rgba(10,10,12,0.055)',
     micro: 'Scene 02 — The Spark',
     caption: 'Taste, craft and intention.',
@@ -51,10 +51,10 @@ const SLIDES = [
     index: '03',
     word: 'BUILD',
     bg: '#0A0A0C',
-    wordColor: '#E10600',
+    wordColor: 'var(--accent)',
     stroke: undefined as string | undefined,
     dot: '#F5F5F4',
-    ghost: 'rgba(225,6,0,0.07)',
+    ghost: 'rgb(var(--accent-rgb, 225 6 0) / 0.07)',
     micro: 'Scene 03 — The Discipline',
     caption: 'Systems, engineered and shipped.',
     tone: 'dark' as const,
@@ -62,7 +62,7 @@ const SLIDES = [
   {
     index: '04',
     word: 'INNOVATE',
-    bg: '#E10600',
+    bg: 'var(--accent)',
     wordColor: '#0A0A0C',
     stroke: undefined as string | undefined,
     dot: '#FAFAF9',
@@ -137,7 +137,7 @@ function KineticSlide({
               opacity: wordOpacity,
               color: slide.wordColor,
               WebkitTextStroke: slide.stroke,
-              textShadow: slide.word === 'BUILD' ? '0 0 70px rgba(225,6,0,0.45)' : undefined,
+              textShadow: slide.word === 'BUILD' ? '0 0 70px rgb(var(--accent-rgb, 225 6 0) / 0.45)' : undefined,
             }}
           >
             {slide.word}
@@ -148,7 +148,7 @@ function KineticSlide({
 
       {/* Microtype caption — lower left, above the letterbox */}
       <div className="absolute bottom-14 left-5 sm:bottom-[4.5rem] sm:left-10">
-        <div className="mb-2 h-px w-14 bg-[#E10600]" aria-hidden="true" />
+        <div className="mb-2 h-px w-14 bg-[var(--accent)]" aria-hidden="true" />
         <p className={cn('font-mono text-[8px] font-bold uppercase tracking-[0.4em] sm:text-[9px]', light ? 'text-[#0A0A0C]/55' : 'text-white/55')}>
           {slide.micro}
         </p>
@@ -181,7 +181,7 @@ export function KineticSlides() {
             className="flex min-h-[46vh] flex-col justify-center overflow-hidden px-6 py-14 sm:px-12"
             style={{ background: slide.bg }}
           >
-            <p className="font-mono text-[9px] font-bold uppercase tracking-[0.4em] text-[#E10600]">{slide.micro}</p>
+            <p className="font-mono text-[9px] font-bold uppercase tracking-[0.4em] text-[color:var(--accent)]">{slide.micro}</p>
             <p
               className="display-tight mt-3 text-[clamp(3rem,13vw,9rem)] leading-[0.97]"
               style={{ color: slide.wordColor === 'transparent' ? '#F5F5F4' : slide.wordColor, WebkitTextStroke: slide.stroke }}
@@ -211,7 +211,7 @@ export function KineticSlides() {
         <div className="absolute inset-x-0 top-0 z-20 flex h-9 items-center justify-between border-b border-white/5 bg-black px-4 font-mono text-[8px] font-semibold uppercase tracking-[0.4em] text-white/55 sm:h-11 sm:px-8 sm:text-[9px]">
           <span>FRN — Cinema Reel</span>
           <span className="hidden sm:inline">Think · Create · Build · Innovate</span>
-          <span className="text-[#E10600]">FRANCIS / 001</span>
+          <span className="text-[color:var(--accent)]">FRANCIS / 001</span>
         </div>
         <div className="absolute inset-x-0 bottom-0 z-20 flex h-9 items-center justify-between border-t border-white/5 bg-black px-4 font-mono text-[8px] font-semibold uppercase tracking-[0.4em] text-white/55 sm:h-11 sm:px-8 sm:text-[9px]">
           <span>{SLIDES[active].micro}</span>
@@ -226,7 +226,7 @@ export function KineticSlides() {
               key={s.index}
               className={cn(
                 'h-[3px] w-7 rounded-full transition-colors duration-300 sm:w-9',
-                i === active ? 'bg-[#E10600]' : 'bg-white/25'
+                i === active ? 'bg-[var(--accent)]' : 'bg-white/25'
               )}
             />
           ))}

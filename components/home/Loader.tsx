@@ -22,7 +22,7 @@ export function Loader() {
     return () => window.clearTimeout(t);
   }, [reduce]);
 
-  const corner = 'pointer-events-none absolute h-10 w-10 border-[#E10600]';
+  const corner = 'pointer-events-none absolute h-10 w-10 border-[var(--accent)]';
 
   return (
     <AnimatePresence>
@@ -35,8 +35,8 @@ export function Loader() {
           aria-hidden="true"
         >
           {/* Light grade: warm paper, faint red grid, soft ember glow */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(1100px_700px_at_72%_38%,rgba(225,6,0,0.10),transparent_65%)]" />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(800px_600px_at_12%_82%,rgba(225,6,0,0.08),transparent_60%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(1100px_700px_at_72%_38%,rgb(var(--accent-rgb, 225 6 0) / 0.10),transparent_65%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(800px_600px_at_12%_82%,rgb(var(--accent-rgb, 225 6 0) / 0.08),transparent_60%)]" />
           <div className="pointer-events-none absolute inset-0 bg-hero-grid bg-grid opacity-[0.55]" />
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.35]"
@@ -44,7 +44,7 @@ export function Loader() {
           />
 
           {/* Scanning beam — soft red */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-24 animate-scanline bg-gradient-to-b from-transparent via-[#E10600]/15 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-24 animate-scanline bg-gradient-to-b from-transparent via-[color-mix(in_srgb,var(--accent)_18%,transparent)] to-transparent" />
 
           {/* HUD corner brackets — red on ivory */}
           <div className={`${corner} left-4 top-4 border-l-2 border-t-2 sm:left-6 sm:top-6`} />
@@ -62,7 +62,7 @@ export function Loader() {
           <p className="absolute bottom-7 left-6 hidden font-mono text-[9px] font-semibold uppercase tracking-[0.4em] text-[#0A0A0C]/45 sm:bottom-9 sm:left-9 sm:block">
             Portfolio · AI · Studio
           </p>
-          <p className="absolute bottom-7 right-6 hidden font-mono text-[9px] font-bold uppercase tracking-[0.4em] text-[#E10600] sm:bottom-9 sm:right-9 sm:block">
+          <p className="absolute bottom-7 right-6 hidden font-mono text-[9px] font-bold uppercase tracking-[0.4em] text-[color:var(--accent)] sm:bottom-9 sm:right-9 sm:block">
             Scene 01 / 09
           </p>
 
@@ -81,7 +81,7 @@ export function Loader() {
               />
               <figcaption className="flex items-center justify-between px-2 pb-1.5 pt-2.5">
                 <span className="font-mono text-[9px] font-bold uppercase tracking-[0.35em] text-[#0A0A0C]/70">Cover car</span>
-                <span className="font-mono text-[9px] font-bold uppercase tracking-[0.35em] text-[#E10600]">BMW M4 · 93</span>
+                <span className="font-mono text-[9px] font-bold uppercase tracking-[0.35em] text-[color:var(--accent)]">BMW M4 · 93</span>
               </figcaption>
             </div>
           </motion.figure>
@@ -92,18 +92,18 @@ export function Loader() {
               {/* Outer dashed orbit */}
               <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full animate-orbit-slow" aria-hidden="true">
                 <circle cx="50" cy="50" r="47.5" fill="none" stroke="rgba(10,10,12,0.18)" strokeWidth="0.7" strokeDasharray="2.4 5.2" />
-                <circle cx="50" cy="50" r="47.5" fill="none" stroke="#E10600" strokeWidth="1.3" strokeLinecap="round" strokeDasharray="52 246" />
+                <circle cx="50" cy="50" r="47.5" fill="none" style={{ stroke: 'var(--accent)' }} strokeWidth="1.3" strokeLinecap="round" strokeDasharray="52 246" />
               </svg>
               {/* Counter-rotating inner arc */}
               <svg viewBox="0 0 100 100" className="absolute inset-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)] animate-spin-slower" style={{ animationDirection: 'reverse' }} aria-hidden="true">
-                <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(225,6,0,0.9)" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="70 400" opacity="0.95" />
+                <circle cx="50" cy="50" r="44" fill="none" stroke="rgb(var(--accent-rgb, 225 6 0) / 0.9)" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="70 400" opacity="0.95" />
               </svg>
               {/* Core emblem — black squircle, red F */}
               <svg width="100" height="100" viewBox="0 0 64 64" className="relative" role="img" aria-label="FRANCIS emblem">
                 <defs>
                   <linearGradient id="f-grad-light" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0" stopColor="#FF3D2E" />
-                    <stop offset="0.55" stopColor="#E10600" />
+                    <stop offset="0.55" style={{ stopColor: 'var(--accent)' }} />
                     <stop offset="1" stopColor="#8F0B00" />
                   </linearGradient>
                 </defs>
@@ -160,7 +160,7 @@ export function Loader() {
               transition={{ delay: 1.1, duration: 0.7 }}
               className="mt-6 inline-flex items-center gap-3 rounded-full border border-[#0A0A0C]/15 bg-white/70 px-4 py-2 backdrop-blur lg:self-start"
             >
-              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-[#E10600]" />
+              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-[var(--accent)]" />
               <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.32em] text-[#0A0A0C]/70">Yadlapalli Francis — Portfolio 001</span>
             </motion.div>
           </div>
@@ -168,7 +168,7 @@ export function Loader() {
           {/* Bottom progress hairline */}
           <div className="absolute bottom-0 left-0 h-[3px] w-full bg-black/8">
             <motion.div
-              className="h-full bg-gradient-to-r from-[#e10600] via-[#ff8a00] to-[#ffd23f] shadow-[0_0_18px_rgba(225,6,0,0.55)]"
+              className="h-full bg-gradient-to-r from-[var(--accent)] via-[#ff8a00] to-[#ffd23f] shadow-[0_0_18px_rgb(var(--accent-rgb, 225 6 0) / 0.55)]"
               initial={{ scaleX: 0, originX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ delay: 0.2, duration: 2.15, ease: [0.16, 1, 0.3, 1] }}

@@ -145,7 +145,7 @@ export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
       {/* Cinematic scroll rail — fills as you move through the scenes */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[2.5px] origin-left bg-gradient-to-r from-[#e10600] via-[#ff8a00] to-[#ffd23f]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[2.5px] origin-left bg-gradient-to-r from-[var(--accent)] via-[#ff8a00] to-[#ffd23f]"
         style={{ scaleX }}
       />
 

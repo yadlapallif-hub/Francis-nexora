@@ -29,7 +29,7 @@ export function Closing() {
           whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
           viewport={{ once: true }}
           transition={{ delay: reduce ? 0 : 0.35, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-8 h-24 w-24 rounded-2xl border border-white/15 object-cover object-top shadow-[8px_8px_0_0_#E10600]"
+          className="mt-8 h-24 w-24 rounded-2xl border border-white/15 object-cover object-top shadow-[8px_8px_0_0_var(--accent)]"
         />
         <motion.p
           initial={{ opacity: 0 }}

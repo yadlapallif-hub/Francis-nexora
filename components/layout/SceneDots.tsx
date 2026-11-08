@@ -70,7 +70,7 @@ export function SceneDots() {
               className={cn(
                 'block rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
                 isActive
-                  ? 'h-6 w-[5px] bg-[#e10600] shadow-[0_0_14px_rgba(225,6,0,0.9)]'
+                  ? 'h-6 w-[5px] bg-[var(--accent)] shadow-[0_0_14px_rgb(var(--accent-rgb, 225 6 0) / 0.9)]'
                   : 'h-[5px] w-[5px] bg-white/55 mix-blend-difference group-hover:bg-white group-hover:shadow-[0_0_10px_rgba(255,255,255,0.6)]'
               )}
             />
