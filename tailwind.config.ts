@@ -5,12 +5,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: '#0A0A0C',
-        electric: '#E10600',
-        skylight: '#F5F5F4',
-        mist: '#F6F6F6',
-        ink: '#141414',
-        royaldeep: '#17171A',
+        // FRANCIS — Bay of Bengal edition. Token names kept for compatibility;
+        // values are drawn from the seaside photograph (sky, turquoise sea, moss rock).
+        navy: '#062A3A',      // deep abyssal sea-teal (was #0A0A0C)
+        electric: '#0E8A9C',  // coastal sea-teal accent (was red #E10600)
+        skylight: '#F2F7F7',  // foam white (was #F5F5F4)
+        mist: '#EDF3F3',      // pale sea-mist surface (was #F6F6F6)
+        ink: '#122E38',       // deep sea-slate text (was #141414)
+        royaldeep: '#0D3748', // raised panel on abyss (was #17171A)
+        sand: '#E4D5B4',      // warm shore sand — gradient warm stop
+        pop: '#3AD2DE',       // bright seafoam pop for dark scenes
       },
       fontFamily: {
         display: ['"Space Grotesk Variable"', '"Space Grotesk"', 'system-ui', 'sans-serif'],
@@ -18,15 +22,15 @@ const config: Config = {
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       boxShadow: {
-        glow: '0 0 60px rgba(225,6,0, 0.35)',
-        glowsm: '0 0 24px rgba(225,6,0, 0.28)',
-        card: '0 24px 60px -18px rgba(10,10,12, 0.25)',
-        glass: '0 8px 40px rgba(10,10,12, 0.12)',
+        glow: '0 0 60px rgba(14,138,156, 0.38)',
+        glowsm: '0 0 24px rgba(14,138,156, 0.30)',
+        card: '0 24px 60px -18px rgba(6,42,58, 0.30)',
+        glass: '0 8px 40px rgba(6,42,58, 0.14)',
       },
       backgroundImage: {
         'hero-grid':
-          'linear-gradient(rgba(225,6,0,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(225,6,0,0.07) 1px, transparent 1px)',
-        'radial-fade': 'radial-gradient(ellipse at center, transparent 30%, #0A0A0C 78%)',
+          'linear-gradient(rgba(58,210,222,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(58,210,222,0.09) 1px, transparent 1px)',
+        'radial-fade': 'radial-gradient(ellipse at center, transparent 30%, #062A3A 78%)',
       },
       backgroundSize: { grid: '72px 72px' },
       animation: {

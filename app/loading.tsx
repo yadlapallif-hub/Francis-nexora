@@ -3,9 +3,9 @@ export default function Loading() {
     <div className="fixed inset-0 z-[999] grid place-items-center bg-navy">
       <div className="flex flex-col items-center gap-6">
         <svg width="72" height="72" viewBox="0 0 64 64" className="animate-pulse">
-          <rect width="64" height="64" rx="14" fill="#17171A" />
-          <path d="M20 46V18h26v8H30v6h12v8H30v6z" fill="#E10600" />
-          <circle cx="45" cy="45" r="4" fill="#F5F5F4" />
+          <rect width="64" height="64" rx="14" fill="#0D3748" />
+          <path d="M20 46V18h26v8H30v6h12v8H30v6z" fill="#0E8A9C" />
+          <circle cx="45" cy="45" r="4" fill="#F2F7F7" />
         </svg>
         <div className="flex items-center gap-2">
           {[0, 1, 2].map((i) => (

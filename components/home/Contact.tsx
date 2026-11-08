@@ -47,7 +47,7 @@ export function Contact({ profile, socials }: { profile: Profile; socials: Socia
 
   return (
     <section id="contact" className="relative overflow-hidden bg-mist py-24 sm:py-32" aria-label="Contact Francis">
-      <div className="pointer-events-none absolute -right-32 bottom-0 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(225,6,0,0.12),transparent_70%)]" />
+      <div className="pointer-events-none absolute -right-32 bottom-0 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(14,138,156,0.12),transparent_70%)]" />
       <div className="relative mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-20">
         <div className="lg:col-span-5">
           <SceneTag index="07" label="Contact" />

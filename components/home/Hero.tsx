@@ -13,15 +13,15 @@ export function Hero({ homepage, profile, nexoraLiveUrl }: { homepage: HomepageS
 
   return (
     <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-navy text-skylight" id="top" aria-label="FRANCIS — introduction">
-      {/* Backdrop plate */}
+      {/* Backdrop — the seaside photograph (Visakhapatnam coast) */}
       <img
-        src="/images/m4-grunge.jpg"
-        alt=""
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[64%_30%] opacity-80"
+        src="/images/seaside.jpg"
+        alt="Seaside coastline at low tide — the horizon Francis looks out from"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[58%_34%] opacity-95"
       />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy via-navy/78 to-navy/5" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/60" />
-      <div className="pointer-events-none absolute inset-0 bg-hero-grid bg-grid opacity-25" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-navy/10" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy via-navy/15 to-navy/55" />
+      <div className="pointer-events-none absolute inset-0 bg-hero-grid bg-grid opacity-20" />
 
       {/* 3D object */}
       <HeroCanvas className="pointer-events-auto absolute inset-y-0 right-[-14%] hidden w-[62%] md:block" />
@@ -77,7 +77,7 @@ export function Hero({ homepage, profile, nexoraLiveUrl }: { homepage: HomepageS
             className="flex shrink-0 flex-wrap items-center gap-3"
           >
             <MagneticButton href="#work" ariaLabel="Explore the work">
-              <span className="inline-flex items-center rounded-full bg-electric px-6 py-3.5 text-[13px] font-bold uppercase tracking-[0.18em] text-white shadow-glowsm transition-colors hover:bg-[#c00500]">
+              <span className="inline-flex items-center rounded-full bg-electric px-6 py-3.5 text-[13px] font-bold uppercase tracking-[0.18em] text-white shadow-glowsm transition-colors hover:bg-[#0B6E7D]">
                 {homepage.ctaPrimary}
               </span>
             </MagneticButton>
@@ -115,7 +115,7 @@ export function Hero({ homepage, profile, nexoraLiveUrl }: { homepage: HomepageS
           aria-label="Open NEXORA AGENT live"
         >
           <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-xl border border-electric/40 bg-electric/15">
-            <span className="absolute inset-0 animate-pulse bg-[radial-gradient(circle,rgba(225,6,0,0.45),transparent_70%)]" />
+            <span className="absolute inset-0 animate-pulse bg-[radial-gradient(circle,rgba(14,138,156,0.45),transparent_70%)]" />
             <span className="relative h-3.5 w-3.5 rounded-sm bg-electric shadow-glowsm" />
           </span>
           <span>

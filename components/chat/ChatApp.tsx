@@ -416,7 +416,7 @@ export default function ChatApp() {
 
         <div className="border-t border-navy/8 px-4 py-3">
           <div className="flex items-center gap-2.5" title={status?.configured ? 'Cloud AI connected via OPENAI_API_KEY' : 'Built-in local engine active — add OPENAI_API_KEY in Vercel for full cloud intelligence'}>
-            <span className={cn('h-2 w-2 rounded-full', status?.enabled ? (status?.configured ? 'bg-emerald-500' : 'bg-[#ff8a00] animate-pulse-dot') : 'bg-red-500')} />
+            <span className={cn('h-2 w-2 rounded-full', status?.enabled ? (status?.configured ? 'bg-emerald-500' : 'bg-[#3AD2DE] animate-pulse-dot') : 'bg-red-500')} />
             <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-ink/55">
               {status?.enabled ? (status?.configured ? 'FRANCIS AI online' : 'FRANCIS AI — local mode') : 'AI disabled'}
             </p>
@@ -460,7 +460,7 @@ export default function ChatApp() {
           {isEmpty ? (
             <div className="mx-auto flex h-full max-w-3xl flex-col items-center justify-center gap-6 px-5 py-10 text-center">
               <div className="relative">
-                <div className="absolute inset-0 -m-6 rounded-full bg-[radial-gradient(circle,rgba(225,6,0,0.18),transparent_70%)]" />
+                <div className="absolute inset-0 -m-6 rounded-full bg-[radial-gradient(circle,rgba(14,138,156,0.18),transparent_70%)]" />
                 <LogoMark className="relative h-20 w-20" />
               </div>
               <div>
@@ -493,7 +493,7 @@ export default function ChatApp() {
                     <div className={cn('min-w-0 max-w-[88%] sm:max-w-[82%]', isUser && 'flex flex-col items-end')}>
                       <div className={cn(
                         'rounded-2xl px-4 py-3 text-[13.5px] leading-6',
-                        isUser ? 'rounded-tr-md bg-navy text-[#F6F6F6]' : 'rounded-tl-md border border-navy/10 bg-white text-ink shadow-sm'
+                        isUser ? 'rounded-tr-md bg-navy text-[#EDF3F3]' : 'rounded-tl-md border border-navy/10 bg-white text-ink shadow-sm'
                       )}>
                         {isUser ? (
                           <p className="whitespace-pre-wrap">{message.content}</p>
@@ -598,7 +598,7 @@ export default function ChatApp() {
                 </button>
               ) : (
                 <button onClick={() => void send()} disabled={!canSend} aria-label="Send message" title="Send message"
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-electric text-white transition enabled:hover:bg-[#c00500] disabled:opacity-35">
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-electric text-white transition enabled:hover:bg-[#0B6E7D] disabled:opacity-35">
                   <SendHorizontal size={18} />
                 </button>
               )}

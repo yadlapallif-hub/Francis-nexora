@@ -3,11 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --navy: #0A0A0C;
-  --electric: #E10600;
-  --skylight: #F5F5F4;
-  --mist: #F6F6F6;
-  --ink: #141414;
+  --navy: #062A3A;
+  --electric: #0E8A9C;
+  --skylight: #F2F7F7;
+  --mist: #EDF3F3;
+  --ink: #122E38;
+  --sand: #E4D5B4;
+  --pop: #3AD2DE;
 }
 
 html {
@@ -41,11 +43,11 @@ body {
   background: var(--mist);
 }
 ::-webkit-scrollbar-thumb {
-  background: #E10600;
+  background: #0E8A9C;
   border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #c00500;
+  background: #0B6E7D;
 }
 
 /* ── Premium glassmorphism ─────────────────────────────── */
@@ -54,11 +56,11 @@ body {
   backdrop-filter: blur(18px) saturate(1.15);
   -webkit-backdrop-filter: blur(18px) saturate(1.15);
   border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 24px 60px -24px rgba(10,10,12, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  box-shadow: 0 24px 60px -24px rgba(6,42,58, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .glass-dark {
-  background: linear-gradient(160deg, rgba(23,23,26, 0.72), rgba(10,10,12, 0.66));
+  background: linear-gradient(160deg, rgba(23,23,26, 0.72), rgba(6,42,58, 0.66));
   backdrop-filter: blur(18px) saturate(1.1);
   -webkit-backdrop-filter: blur(18px) saturate(1.1);
   border: 1px solid rgba(255,255,255, 0.18);
@@ -66,8 +68,8 @@ body {
 }
 
 .card-outline {
-  border: 1px solid rgba(10,10,12, 0.09);
-  box-shadow: 0 18px 50px -30px rgba(10,10,12, 0.35);
+  border: 1px solid rgba(6,42,58, 0.09);
+  box-shadow: 0 18px 50px -30px rgba(6,42,58, 0.35);
 }
 
 /* ── Display type ──────────────────────────────────────── */
@@ -83,7 +85,7 @@ body {
 }
 
 .shimmer-text {
-  background: linear-gradient(110deg, #17171A 0%, #E10600 25%, #ff8a7a 42%, #E10600 60%, #17171A 100%);
+  background: linear-gradient(110deg, #0D3748 0%, #0E8A9C 25%, #7FE3EC 42%, #0E8A9C 60%, #0D3748 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -110,7 +112,7 @@ body {
 .chat-md {
   font-size: 0.925rem;
   line-height: 1.75;
-  color: #262626;
+  color: #1B4557;
   overflow-wrap: anywhere;
 }
 .chat-md h1, .chat-md h2, .chat-md h3 { font-family: 'Space Grotesk Variable', sans-serif; letter-spacing: -0.02em; color: var(--navy); font-weight: 700; margin: 1.1em 0 0.45em; }
@@ -120,14 +122,14 @@ body {
 .chat-md ul { list-style: disc; } .chat-md ol { list-style: decimal; }
 .chat-md li { margin: 0.28em 0; }
 .chat-md strong { color: var(--navy); font-weight: 650; }
-.chat-md a { color: var(--electric); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(225,6,0, 0.4); }
+.chat-md a { color: var(--electric); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(14,138,156, 0.4); }
 .chat-md a:hover { text-decoration-color: var(--electric); }
 .chat-md code:not(pre code) {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 0.85em;
   background: var(--skylight);
-  color: #17171A;
-  border: 1px solid rgba(225,6,0, 0.22);
+  color: #0D3748;
+  border: 1px solid rgba(58,210,222, 0.25);
   padding: 0.12em 0.42em;
   border-radius: 6px;
 }
@@ -137,7 +139,7 @@ body {
 .chat-md th, .chat-md td { border: 1px solid #e5e5e5; padding: 0.45em 0.7em; text-align: left; }
 .chat-md th { background: var(--skylight); color: var(--navy); }
 
-.hljs { background: #17171A !important; }
+.hljs { background: #0D3748 !important; }
 pre code.hljs { padding: 1.1em 1.25em !important; border-radius: 0 !important; font-family: 'JetBrains Mono', ui-monospace, monospace !important; font-size: 0.82rem !important; line-height: 1.65 !important; }
 
 /* ── Reduced motion ────────────────────────────────────── */
@@ -152,7 +154,7 @@ pre code.hljs { padding: 1.1em 1.25em !important; border-radius: 0 !important; f
 
 /* ── Multicolour animated wordmark (dark + light backdrops) ── */
 .shimmer-multi {
-  background: linear-gradient(100deg, #ff3d2e 0%, #ff8a00 16%, #ffd23f 30%, #ffffff 45%, #ff5a3c 60%, #e10600 76%, #ff8a00 100%);
+  background: linear-gradient(100deg, #3AD2DE 0%, #7FE3EC 15%, #E4D5B4 30%, #FFFFFF 45%, #3AD2DE 62%, #0E8A9C 78%, #E4D5B4 100%);
   background-size: 240% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -160,7 +162,7 @@ pre code.hljs { padding: 1.1em 1.25em !important; border-radius: 0 !important; f
   animation: shimmerMulti 3.4s linear infinite;
 }
 .shimmer-multi-dark {
-  background: linear-gradient(100deg, #e10600 0%, #ff8a00 18%, #b91c1c 34%, #111418 48%, #e10600 66%, #f59e0b 84%, #e10600 100%);
+  background: linear-gradient(100deg, #0B6E7D 0%, #0E8A9C 16%, #062A3A 32%, #122E38 46%, #0E8A9C 64%, #3AD2DE 84%, #0B6E7D 100%);
   background-size: 240% 100%;
   -webkit-background-clip: text;
   background-clip: text;

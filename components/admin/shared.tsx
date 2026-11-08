@@ -189,7 +189,7 @@ export function EntityEditor({
                   <Toggle checked={row.visible !== false} onChange={(v) => patch(row, 'visible', v)} label="Visible on site" />
                 </label>
                 {dirty[row.id] && (
-                  <button onClick={() => save(dirty[row.id])} className="flex items-center gap-1.5 rounded-lg bg-electric px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-white hover:bg-[#c00500]">
+                  <button onClick={() => save(dirty[row.id])} className="flex items-center gap-1.5 rounded-lg bg-electric px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-white hover:bg-[#0B6E7D]">
                     {saving === row.id ? <Loader2 size={11} className="animate-spin" /> : <Save size={11} />} Save
                   </button>
                 )}

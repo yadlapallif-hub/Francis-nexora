@@ -4,7 +4,7 @@ import type { ExperienceItem, Achievement } from '@/lib/types';
 
 export function ExperienceAchievements({ experience, achievements }: { experience: ExperienceItem[]; achievements: Achievement[] }) {
   return (
-    <section id="experience" className="bg-white py-24 sm:py-32" aria-label="Experience and achievements">
+    <section id="experience" className="bg-[#F2F7F7] py-24 sm:py-32" aria-label="Experience and achievements">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SceneTag index="06" label="Experience & Achievements" />
         <h2 className="display-tight mt-5 text-4xl font-bold text-navy sm:text-6xl">The ledger<br />of <span className="shimmer-text">proof.</span></h2>
@@ -22,7 +22,7 @@ export function ExperienceAchievements({ experience, achievements }: { experienc
                 <p className="mx-auto mt-3 max-w-md text-[13px] leading-6 text-ink/70">
                   Currently a B.Tech CSE student at Raghu Engineering College building real products instead of padding a résumé. Open to internships, open-source collaboration and freelance micro-projects.
                 </p>
-                <a href="#contact" className="mt-5 inline-flex items-center gap-2 rounded-full bg-electric px-6 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-[#c00500]">
+                <a href="#contact" className="mt-5 inline-flex items-center gap-2 rounded-full bg-electric px-6 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-[#0B6E7D]">
                   Work with Francis <ArrowUpRight size={13} />
                 </a>
               </div>

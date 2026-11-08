@@ -30,7 +30,7 @@ function CodeBlock({ children }: { children?: ReactNode }) {
   };
 
   return (
-    <div className="group/code relative overflow-hidden rounded-2xl border border-[#1c1c1f] bg-[#17171A] shadow-lg">
+    <div className="group/code relative overflow-hidden rounded-2xl border border-[#12384A] bg-[#0D3748] shadow-lg">
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-2">
         <div className="flex items-center gap-1.5" aria-hidden="true">
           <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
