@@ -460,7 +460,7 @@ export default function ChatApp() {
           {isEmpty ? (
             <div className="mx-auto flex h-full max-w-3xl flex-col items-center justify-center gap-6 px-5 py-10 text-center">
               <div className="relative">
-                <div className="absolute inset-0 -m-6 rounded-full bg-[radial-gradient(circle,rgba(37,99,235,0.18),transparent_70%)]" />
+                <div className="absolute inset-0 -m-6 rounded-full bg-[radial-gradient(circle,rgba(225,6,0,0.18),transparent_70%)]" />
                 <LogoMark className="relative h-20 w-20" />
               </div>
               <div>
@@ -493,7 +493,7 @@ export default function ChatApp() {
                     <div className={cn('min-w-0 max-w-[88%] sm:max-w-[82%]', isUser && 'flex flex-col items-end')}>
                       <div className={cn(
                         'rounded-2xl px-4 py-3 text-[13.5px] leading-6',
-                        isUser ? 'rounded-tr-md bg-navy text-[#eef4ff]' : 'rounded-tl-md border border-navy/10 bg-white text-ink shadow-sm'
+                        isUser ? 'rounded-tr-md bg-navy text-[#F6F6F6]' : 'rounded-tl-md border border-navy/10 bg-white text-ink shadow-sm'
                       )}>
                         {isUser ? (
                           <p className="whitespace-pre-wrap">{message.content}</p>
@@ -598,7 +598,7 @@ export default function ChatApp() {
                 </button>
               ) : (
                 <button onClick={() => void send()} disabled={!canSend} aria-label="Send message" title="Send message"
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-electric text-white transition enabled:hover:bg-[#1d4fd7] disabled:opacity-35">
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-electric text-white transition enabled:hover:bg-[#c00500] disabled:opacity-35">
                   <SendHorizontal size={18} />
                 </button>
               )}

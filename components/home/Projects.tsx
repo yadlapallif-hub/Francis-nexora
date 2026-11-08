@@ -43,7 +43,7 @@ export function Projects({ projects }: { projects: Project[] }) {
                 alt={`${featured.title} — product visual`}
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.4s] ease-out hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-navy/10 to-[#0d264c]/90" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-navy/10 to-[#141416]/90" />
               <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-electric/50 bg-navy/70 px-4 py-2 font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-electric backdrop-blur">
                 <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-electric" /> Featured
               </span>
@@ -76,7 +76,7 @@ export function Projects({ projects }: { projects: Project[] }) {
 
               <div className="mt-2 flex flex-wrap items-center gap-3">
                 {featured.live_url && (
-                  <a href={featured.live_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-electric px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.2em] text-white shadow-glowsm transition hover:bg-[#1d4fd7]">
+                  <a href={featured.live_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-electric px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.2em] text-white shadow-glowsm transition hover:bg-[#c00500]">
                     Visit live <ExternalLink size={14} strokeWidth={2.5} />
                   </a>
                 )}

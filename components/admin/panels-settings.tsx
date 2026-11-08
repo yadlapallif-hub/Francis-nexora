@@ -81,20 +81,20 @@ function DraftBar({ isDirty, busy, flash, error, onSave, onPublish, onDiscard }:
         <div className="flex items-center gap-2">
           <button onClick={onDiscard} disabled={!isDirty || busy !== null} className="inline-flex items-center gap-1.5 rounded-lg border border-navy/15 px-3.5 py-2.5 text-[10px] font-bold uppercase tracking-widest text-navy/70 transition enabled:hover:border-navy disabled:opacity-40"><RotateCcw size={12} /> Discard</button>
           <button onClick={onSave} disabled={busy !== null} className="inline-flex items-center gap-1.5 rounded-lg border border-electric/50 bg-skylight px-3.5 py-2.5 text-[10px] font-bold uppercase tracking-widest text-navy transition hover:border-electric disabled:opacity-40">{busy === 'save' ? <Loader2 size={12} className="animate-spin" /> : <Save size={12} />} Save draft</button>
-          <button onClick={onPublish} disabled={busy !== null} className="inline-flex items-center gap-1.5 rounded-lg bg-electric px-4 py-2.5 text-[10px] font-bold uppercase tracking-widest text-white transition hover:bg-[#1d4fd7] disabled:opacity-40">{busy === 'publish' ? <Loader2 size={12} className="animate-spin" /> : <Rocket size={12} />} Publish</button>
+          <button onClick={onPublish} disabled={busy !== null} className="inline-flex items-center gap-1.5 rounded-lg bg-electric px-4 py-2.5 text-[10px] font-bold uppercase tracking-widest text-white transition hover:bg-[#c00500] disabled:opacity-40">{busy === 'publish' ? <Loader2 size={12} className="animate-spin" /> : <Rocket size={12} />} Publish</button>
         </div>
       </div>
     </div>
   );
 }
 
-const THEME_DEFAULTS: ThemeSettings = { accent: '#2563EB', mode: 'light' };
+const THEME_DEFAULTS: ThemeSettings = { accent: '#E10600', mode: 'light' };
 
 /* ═══════════ 12 · THEME EDITOR ═══════════ */
 
 const ACCENTS = [
-  { name: 'Electric Blue', value: '#2563EB' },
-  { name: 'Royal Indigo', value: '#4F46E5' },
+  { name: 'Electric Blue', value: '#E10600' },
+  { name: 'Royal Indigo', value: '#c00500' },
   { name: 'Cyan Pulse', value: '#0891B2' },
   { name: 'Emerald Signal', value: '#059669' },
   { name: 'Crimson Forge', value: '#DC2626' },
@@ -240,7 +240,7 @@ export function SeoPanel() {
         </Field>
         <div className="rounded-2xl border border-navy/10 bg-mist p-4">
           <p className="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-navy/60"><Search size={11} className="mr-1 inline" /> Search preview</p>
-          <p className="mt-2 truncate text-[12px] text-[#1a0dab]">{editing.title}</p>
+          <p className="mt-2 truncate text-[12px] text-[#E10600]">{editing.title}</p>
           <p className="text-[11px] text-emerald-800">https://francis-platform.vercel.app</p>
           <p className="mt-0.5 line-clamp-2 text-[11px] leading-5 text-ink/60">{editing.description}</p>
         </div>
@@ -290,7 +290,7 @@ export function AiConfigPanel() {
     <PanelCard
       title="AI Configuration"
       description="Command deck for FRANCIS AI. Provider credentials never appear here — they live exclusively in server environment variables (Vercel → Settings → Environment Variables)."
-      actions={<button onClick={save} className="inline-flex items-center gap-2 rounded-xl bg-electric px-5 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white hover:bg-[#1d4fd7]">{saving ? <Loader2 size={13} className="animate-spin" /> : <Save size={13} />} Save configuration</button>}
+      actions={<button onClick={save} className="inline-flex items-center gap-2 rounded-xl bg-electric px-5 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white hover:bg-[#c00500]">{saving ? <Loader2 size={13} className="animate-spin" /> : <Save size={13} />} Save configuration</button>}
     >
       {error && <p role="alert" className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-[12px] text-red-700">{error}</p>}
       {flash && <p className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-[12px] font-semibold text-emerald-800">Saved. The assistant obeys these settings immediately.</p>}
@@ -437,7 +437,7 @@ export function AiAnalyticsPanel() {
           {daily.map(([day, v]) => (
             <div key={day} className="group flex h-full flex-1 flex-col items-center justify-end gap-1.5">
               <span className="font-mono text-[8.5px] text-ink/0 transition group-hover:text-ink/60">{v.count}</span>
-              <div className={cn('w-full rounded-t-md transition-all', v.errors > 0 ? 'bg-gradient-to-t from-amber-500 to-amber-300' : 'bg-gradient-to-t from-electric to-[#7db4ff]')} style={{ height: `${Math.max(3, (v.count / peak) * 100)}%` }} title={`${day}: ${v.count} req · ${v.searches} searches · ${v.errors} errors`} />
+              <div className={cn('w-full rounded-t-md transition-all', v.errors > 0 ? 'bg-gradient-to-t from-amber-500 to-amber-300' : 'bg-gradient-to-t from-electric to-[#ff8a7a]')} style={{ height: `${Math.max(3, (v.count / peak) * 100)}%` }} title={`${day}: ${v.count} req · ${v.searches} searches · ${v.errors} errors`} />
               <span className="font-mono text-[7.5px] uppercase text-ink/35">{day.slice(8, 10)}/{day.slice(5, 7)}</span>
             </div>
           ))}

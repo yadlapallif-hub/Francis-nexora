@@ -5,12 +5,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: '#071B3A',
-        electric: '#2563EB',
-        skylight: '#EAF2FF',
-        mist: '#F5F7FB',
-        ink: '#101828',
-        royaldeep: '#0A2450',
+        navy: '#0A0A0C',
+        electric: '#E10600',
+        skylight: '#F5F5F4',
+        mist: '#F6F6F6',
+        ink: '#141414',
+        royaldeep: '#17171A',
       },
       fontFamily: {
         display: ['"Space Grotesk Variable"', '"Space Grotesk"', 'system-ui', 'sans-serif'],
@@ -18,15 +18,15 @@ const config: Config = {
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       boxShadow: {
-        glow: '0 0 60px rgba(37, 99, 235, 0.35)',
-        glowsm: '0 0 24px rgba(37, 99, 235, 0.28)',
-        card: '0 24px 60px -18px rgba(7, 27, 58, 0.25)',
-        glass: '0 8px 40px rgba(7, 27, 58, 0.12)',
+        glow: '0 0 60px rgba(225,6,0, 0.35)',
+        glowsm: '0 0 24px rgba(225,6,0, 0.28)',
+        card: '0 24px 60px -18px rgba(10,10,12, 0.25)',
+        glass: '0 8px 40px rgba(10,10,12, 0.12)',
       },
       backgroundImage: {
         'hero-grid':
-          'linear-gradient(rgba(37,99,235,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.07) 1px, transparent 1px)',
-        'radial-fade': 'radial-gradient(ellipse at center, transparent 30%, #071B3A 78%)',
+          'linear-gradient(rgba(225,6,0,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(225,6,0,0.07) 1px, transparent 1px)',
+        'radial-fade': 'radial-gradient(ellipse at center, transparent 30%, #0A0A0C 78%)',
       },
       backgroundSize: { grid: '72px 72px' },
       animation: {

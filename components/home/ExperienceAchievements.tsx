@@ -22,7 +22,7 @@ export function ExperienceAchievements({ experience, achievements }: { experienc
                 <p className="mx-auto mt-3 max-w-md text-[13px] leading-6 text-ink/70">
                   Currently a B.Tech CSE student at Raghu Engineering College building real products instead of padding a résumé. Open to internships, open-source collaboration and freelance micro-projects.
                 </p>
-                <a href="#contact" className="mt-5 inline-flex items-center gap-2 rounded-full bg-electric px-6 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-[#1d4fd7]">
+                <a href="#contact" className="mt-5 inline-flex items-center gap-2 rounded-full bg-electric px-6 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-[#c00500]">
                   Work with Francis <ArrowUpRight size={13} />
                 </a>
               </div>

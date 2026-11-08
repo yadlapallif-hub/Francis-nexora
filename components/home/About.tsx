@@ -8,7 +8,7 @@ import type { AboutSection, Profile } from '@/lib/types';
 export function About({ sections, profile }: { sections: AboutSection[]; profile: Profile }) {
   return (
     <section id="about" className="relative overflow-hidden bg-white py-24 sm:py-32" aria-label="About Francis">
-      <div className="pointer-events-none absolute -left-40 top-24 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(234,242,255,0.9),transparent_70%)]" />
+      <div className="pointer-events-none absolute -left-40 top-24 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(245,245,244,0.9),transparent_70%)]" />
       <div className="relative mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-20">
         {/* Portrait plate */}
         <div className="lg:col-span-4">
@@ -45,7 +45,7 @@ export function About({ sections, profile }: { sections: AboutSection[]; profile
           <SceneTag index="02" label="About — Who Francis is" />
           <h2 className="display-tight mt-5 text-4xl font-bold text-navy sm:text-6xl">
             Engineer by study.<br />
-            <span className="text-outline" style={{ WebkitTextStrokeColor: '#071B3A' }}>Builder by instinct.</span>
+            <span className="text-outline" style={{ WebkitTextStrokeColor: '#0A0A0C' }}>Builder by instinct.</span>
           </h2>
           <p className="mt-6 flex items-start gap-3 text-[15px] leading-7 text-ink/80 sm:text-base">
             <Quote size={16} className="mt-1 shrink-0 text-electric" />

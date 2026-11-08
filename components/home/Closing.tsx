@@ -10,7 +10,7 @@ export function Closing() {
   return (
     <section className="relative flex min-h-[92svh] flex-col items-center justify-center overflow-hidden bg-navy text-center text-skylight" aria-label="FRANCIS — closing frame">
       <div className="pointer-events-none absolute inset-0 bg-hero-grid bg-grid opacity-25" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[640px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(37,99,235,0.3),transparent_68%)]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[640px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(225,6,0,0.3),transparent_68%)]" />
       <div className="relative flex w-full flex-col items-center px-5">
         <p className="font-mono text-[10px] font-medium uppercase tracking-[0.5em] text-electric sm:text-[11px]">Final cut</p>
         <h2 className="display-tight mt-6 text-[clamp(4.5rem,19vw,13rem)] font-bold leading-none text-white">
@@ -28,7 +28,7 @@ export function Closing() {
         >
           A cinematic portfolio. A general-purpose AI. A studio that ships — one disciplined system at a time.
         </motion.p>
-        <Link href="/ai" className="group mt-10 inline-flex items-center gap-3 rounded-full bg-electric px-9 py-4 font-display text-sm font-bold uppercase tracking-[0.22em] text-white shadow-glow transition hover:bg-[#1d4fd7]">
+        <Link href="/ai" className="group mt-10 inline-flex items-center gap-3 rounded-full bg-electric px-9 py-4 font-display text-sm font-bold uppercase tracking-[0.22em] text-white shadow-glow transition hover:bg-[#c00500]">
           <Sparkles size={16} /> Talk to FRANCIS AI <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1.5" />
         </Link>
       </div>

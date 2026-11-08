@@ -91,7 +91,7 @@ export const FALLBACK_DATA: PortfolioData = {
     { id: 'so-5', platform: 'whatsapp', label: 'WhatsApp', url: '', display_order: 5, visible: false },
   ],
   settings: {
-    theme: { accent: '#2563EB', mode: 'light' },
+    theme: { accent: '#E10600', mode: 'light' },
     homepage: {
       heroEyebrow: 'PORTFOLIO · AI WORKSPACE · STUDIO',
       headline: ['THINK.', 'CREATE.', 'BUILD.', 'INNOVATE.'],

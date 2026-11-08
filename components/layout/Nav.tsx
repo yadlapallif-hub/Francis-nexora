@@ -37,7 +37,7 @@ export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
     <header
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-all duration-500',
-        scrolled ? 'border-b border-navy/5 bg-white/75 shadow-[0_10px_40px_-20px_rgba(7,27,58,0.35)] backdrop-blur-xl' : 'bg-transparent'
+        scrolled ? 'border-b border-navy/5 bg-white/75 shadow-[0_10px_40px_-20px_rgba(10,10,12,0.35)] backdrop-blur-xl' : 'bg-transparent'
       )}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 sm:px-8" aria-label="Primary">
@@ -76,7 +76,7 @@ export function Nav({ resumeUrl }: { resumeUrl?: string | null }) {
           ) : null}
           <Link
             href="/ai"
-            className="group flex items-center gap-2 rounded-full bg-electric px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.16em] text-white shadow-glowsm transition hover:bg-[#1d4fd7] focus:outline-none focus-visible:ring-2 focus-visible:ring-electric"
+            className="group flex items-center gap-2 rounded-full bg-electric px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.16em] text-white shadow-glowsm transition hover:bg-[#c00500] focus:outline-none focus-visible:ring-2 focus-visible:ring-electric"
           >
             <Sparkles size={13} strokeWidth={2.5} className="transition-transform duration-300 group-hover:scale-125" />
             FRANCIS AI

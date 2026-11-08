@@ -17,7 +17,7 @@ export function Skills({ skills }: { skills: Skill[] }) {
 
   return (
     <section id="skills" className="relative overflow-hidden bg-mist py-24 sm:py-32" aria-label="Technical skills">
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(ellipse_at_top_right,rgba(234,242,255,0.95),transparent_65%)]" />
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(ellipse_at_top_right,rgba(245,245,244,0.95),transparent_65%)]" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -47,7 +47,7 @@ export function Skills({ skills }: { skills: Skill[] }) {
                     </div>
                     <div className="h-[7px] overflow-hidden rounded-full bg-skylight" role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={skill.level} aria-label={`${skill.name} proficiency`}>
                       <motion.div
-                        className="h-full rounded-full bg-gradient-to-r from-electric via-[#3b82f6] to-[#7db4ff]"
+                        className="h-full rounded-full bg-gradient-to-r from-electric via-[#ef4444] to-[#ff8a7a]"
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.level}%` }}
                         viewport={{ once: true, margin: '-40px' }}
