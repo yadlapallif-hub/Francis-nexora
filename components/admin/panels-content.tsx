@@ -54,7 +54,7 @@ export function OverviewPanel({ onNavigate }: { onNavigate: (section: string) =>
     { label: 'Projects', value: stats.projects, icon: FolderKanban, section: 'projects' },
     { label: 'Skills', value: stats.skills, icon: Wrench, section: 'skills' },
     { label: 'Inbox (new)', value: stats.newMessages, icon: Inbox, section: 'messages', accent: (stats.newMessages ?? 0) > 0 },
-    { label: 'AI chats · 7d', value: stats.sessions7d, icon: MessagesSquare, section: 'chathistory' },
+    { label: 'AI chats · 7d', value: stats.sessions7d, icon: MessagesSquare, section: 'chat-history' },
     { label: 'AI requests · 7d', value: stats.usage7d, icon: Cpu, section: 'ai-analytics' },
     { label: 'Achievements', value: stats.achievements, icon: ArrowUpRight, section: 'achievements' },
   ];

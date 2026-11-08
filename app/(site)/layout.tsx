@@ -5,7 +5,7 @@ import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/500.css';
 import '@fontsource-variable/fraunces/full.css';
 import '@fontsource-variable/fraunces/full-italic.css';
-import './globals.css';
+import '../globals.css';
 import { getPortfolioData } from '@/lib/content';
 
 export const dynamic = 'force-dynamic';

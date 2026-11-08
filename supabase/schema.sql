@@ -203,3 +203,52 @@ create table if not exists public.admin_users (
   email text not null,
   created_at timestamptz not null default now()
 );
+
+-- ── Admin notifications (added migration: admin_notifications) ─────────────
+create table if not exists public.admin_notifications (
+  id uuid primary key default gen_random_uuid(),
+  kind text not null default 'system' check (kind in ('contact','ai','content','system')),
+  severity text not null default 'info' check (severity in ('info','success','warning','critical')),
+  title text not null,
+  body text,
+  section text not null default 'overview',
+  metadata jsonb not null default '{}'::jsonb,
+  read_at timestamptz,
+  created_at timestamptz not null default now()
+);
+create index if not exists admin_notifications_created_idx on public.admin_notifications (created_at desc);
+create index if not exists admin_notifications_unread_idx on public.admin_notifications (read_at) where read_at is null;
+
+alter table public.admin_notifications enable row level security;
+drop policy if exists "admin read notifications" on public.admin_notifications;
+create policy "admin read notifications" on public.admin_notifications for select using (public.is_admin());
+drop policy if exists "admin update notifications" on public.admin_notifications;
+create policy "admin update notifications" on public.admin_notifications for update using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "admin delete notifications" on public.admin_notifications;
+create policy "admin delete notifications" on public.admin_notifications for delete using (public.is_admin());
+
+create or replace function public.notify_contact_message()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  insert into public.admin_notifications (kind, severity, title, body, section, metadata)
+  values ('contact', 'info', 'New contact message — ' || coalesce(new.name, 'Unknown'),
+          left(coalesce(new.message, ''), 240), 'messages',
+          jsonb_build_object('contact_id', new.id, 'email', new.email, 'subject', new.subject));
+  return new;
+end $$;
+drop trigger if exists on_contact_message on public.contact_messages;
+create trigger on_contact_message after insert on public.contact_messages
+  for each row execute function public.notify_contact_message();
+
+create or replace function public.notify_ai_error()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  insert into public.admin_notifications (kind, severity, title, body, section, metadata)
+  values ('ai', 'warning', 'FRANCIS AI request failed',
+          left(coalesce(new.error, 'Unknown error'), 240), 'ai-analytics',
+          jsonb_build_object('usage_id', new.id, 'mode', new.mode, 'session_id', new.session_id));
+  return new;
+end $$;
+drop trigger if exists on_ai_error on public.ai_usage_logs;
+create trigger on_ai_error after insert on public.ai_usage_logs
+  for each row when (new.error is not null) execute function public.notify_ai_error();

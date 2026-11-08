@@ -10,6 +10,8 @@ import { EntityEditor, PanelCard } from './shared';
 import {
   OverviewPanel, ProfilePanel, MessagesPanel, GalleryPanel, SocialPanel,
 } from './panels-content';
+import { NotificationsPanel } from './panels-notifications';
+import { useAdminNotifications } from '@/lib/useAdminNotifications';
 import {
   ThemePanel, HomepagePanel, SeoPanel, AiConfigPanel, AiAnalyticsPanel, ChatHistoryPanel,
 } from './panels-settings';
@@ -17,16 +19,17 @@ import {
   LayoutDashboard, UserRound, BookOpenText, Wrench, GraduationCap, FolderKanban,
   BriefcaseBusiness, Trophy, Images, Inbox, AtSign, Palette, PanelsTopLeft, Search,
   Cpu, ChartNoAxesColumn, MessagesSquare, SlidersHorizontal, Menu, X, LogOut,
-  ArrowUpRight, Loader2, ShieldCheck, LockKeyhole, Mail, AlertTriangle,
+  ArrowUpRight, Loader2, ShieldCheck, LockKeyhole, Mail, AlertTriangle, Bell, CircleAlert, Info,
 } from 'lucide-react';
 
 type SectionId =
-  | 'overview' | 'profile' | 'about' | 'skills' | 'education' | 'projects' | 'experience'
+  | 'overview' | 'notifications' | 'profile' | 'about' | 'skills' | 'education' | 'projects' | 'experience'
   | 'achievements' | 'gallery' | 'messages' | 'social' | 'theme' | 'homepage' | 'seo'
   | 'ai-config' | 'ai-analytics' | 'chat-history' | 'settings';
 
 const SECTIONS: Array<{ id: SectionId; label: string; icon: typeof LayoutDashboard }> = [
   { id: 'overview', label: 'Dashboard Overview', icon: LayoutDashboard },
+  { id: 'notifications', label: 'Notifications', icon: Bell },
   { id: 'profile', label: 'Profile Editor', icon: UserRound },
   { id: 'about', label: 'About Editor', icon: BookOpenText },
   { id: 'skills', label: 'Skills Manager', icon: Wrench },
@@ -52,6 +55,7 @@ export default function AdminApp() {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [section, setSection] = useState<SectionId>('overview');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const notif = useAdminNotifications(isAdmin === true && !!session);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
@@ -132,6 +136,9 @@ export default function AdminApp() {
                   >
                     <Icon size={15} strokeWidth={2} className="shrink-0" />
                     <span className="truncate text-left">{item.label}</span>
+                    {item.id === 'notifications' && notif.unread > 0 && (
+                      <span className="ml-auto inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-electric px-1.5 text-[9px] font-black text-white">{notif.unread > 99 ? '99+' : notif.unread}</span>
+                    )}
                   </button>
                 </li>
               );
@@ -155,23 +162,63 @@ export default function AdminApp() {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setSection('notifications')}
+              aria-label={notif.unread > 0 ? `${notif.unread} unread notifications` : 'Notifications'}
+              className="relative inline-flex items-center justify-center rounded-xl border border-navy/12 p-2.5 text-navy transition hover:border-electric hover:text-electric"
+            >
+              <Bell size={17} />
+              {notif.unread > 0 && (
+                <span className="absolute -right-1.5 -top-1.5 inline-flex h-5 min-w-5 animate-pulse items-center justify-center rounded-full bg-electric px-1 text-[8.5px] font-black text-white">{notif.unread > 99 ? '99+' : notif.unread}</span>
+              )}
+            </button>
             <span className="hidden items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.25em] text-emerald-700 md:inline-flex"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Secured</span>
             <a href="/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-full border border-navy/15 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.22em] text-navy transition hover:border-electric hover:text-electric">View site <ArrowUpRight size={12} /></a>
           </div>
         </header>
+        {notif.unread > 0 && section !== 'notifications' && (
+          <div className="flex items-center justify-between gap-3 border-b border-red-200 bg-red-50 px-4 py-2 sm:px-6">
+            <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-red-700">
+              <CircleAlert size={13} /> {notif.unread} unread alert{notif.unread === 1 ? '' : 's'} waiting in the studio
+            </p>
+            <button onClick={() => setSection('notifications')} className="text-[10px] font-black uppercase tracking-[0.22em] text-red-700 underline underline-offset-2 hover:text-red-900">Review now</button>
+          </div>
+        )}
         <div className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
-          <SectionRouter section={section} onNavigate={(s) => setSection(s as SectionId)} />
+          <SectionRouter section={section} onNavigate={(s) => setSection(s as SectionId)} notif={notif} />
         </div>
       </main>
+
+      {/* Realtime toast for incoming alerts */}
+      {notif.toast && (
+        <div role="status" aria-live="polite" className="pointer-events-auto fixed bottom-5 right-4 z-50 w-[min(92vw,360px)] overflow-hidden rounded-2xl border border-navy/15 bg-navy text-skylight shadow-2xl shadow-navy/40">
+          <div className="flex items-start gap-3 p-4">
+            <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-electric/15 text-electric">
+              {notif.toast.kind === 'contact' ? <Mail size={16} /> : notif.toast.kind === 'ai' ? <Cpu size={16} /> : notif.toast.severity === 'critical' || notif.toast.severity === 'warning' ? <AlertTriangle size={16} /> : <Info size={16} />}
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="font-mono text-[8px] uppercase tracking-[0.35em] text-electric">New alert</p>
+              <p className="mt-1 text-[12.5px] font-bold leading-snug text-white">{notif.toast.title}</p>
+              {notif.toast.body && <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-skylight/65">{notif.toast.body}</p>}
+              <div className="mt-2.5 flex items-center gap-2">
+                <button onClick={() => { const t = notif.toast!; void notif.markRead(t.id); setSection((t.section || 'overview') as SectionId); notif.dismissToast(); }} className="rounded-full bg-electric px-3.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-red-600">Open</button>
+                <button onClick={notif.dismissToast} className="rounded-full border border-white/15 px-3.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-skylight/70 transition hover:text-white">Dismiss</button>
+              </div>
+            </div>
+            <button onClick={notif.dismissToast} aria-label="Dismiss alert" className="rounded-lg p-1 text-skylight/50 transition hover:text-white"><X size={15} /></button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 /* ─── Section router ─────────────────────────────────────────────────────── */
 
-function SectionRouter({ section, onNavigate }: { section: SectionId; onNavigate: (s: string) => void }) {
+function SectionRouter({ section, onNavigate, notif }: { section: SectionId; onNavigate: (s: string) => void; notif: ReturnType<typeof useAdminNotifications> }) {
   switch (section) {
     case 'overview': return <OverviewPanel onNavigate={onNavigate} />;
+    case 'notifications': return <NotificationsPanel api={notif} onNavigate={onNavigate} />;
     case 'profile': return <ProfilePanel />;
     case 'about':
       return (
