@@ -4,6 +4,7 @@ import { SceneDots } from '@/components/layout/SceneDots';
 import { Footer } from '@/components/layout/Footer';
 import { Loader } from '@/components/home/Loader';
 import { Hero } from '@/components/home/Hero';
+import { KineticSlides } from '@/components/home/KineticSlides';
 import { About } from '@/components/home/About';
 import { Skills } from '@/components/home/Skills';
 import { Education } from '@/components/home/Education';
@@ -28,6 +29,9 @@ export default async function HomePage() {
 
       {/* SCENE 02 — Cinematic hero */}
       <Hero homepage={homepage} profile={data.profile} nexoraLiveUrl={nexora?.live_url} />
+
+      {/* SCENE 02B — Cinematic kinetic type slides */}
+      <KineticSlides />
 
       {/* SCENE 03 — About */}
       {scenes.about !== false && <About sections={data.about} profile={data.profile} />}
