@@ -1,29 +1,23 @@
 import 'server-only';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://ojzcgeckdrvxvkfphtma.supabase.co';
-const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 let cached: SupabaseClient | null = null;
 
 /**
- * Privileged service-role client. SERVER ONLY.
- * Used for: contact form inserts, AI session/message persistence, usage logs,
- * private document storage, and public portfolio reads that must not fail.
- * Never imported by client components.
+ * Service-role client — SERVER ONLY. Bypasses RLS, used inside API routes for
+ * contact intake, AI persistence, analytics and rate limiting. Never import
+ * this from a client component.
  */
-export function createServiceClient(): SupabaseClient {
-  if (!SERVICE_ROLE_KEY) {
-    throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured on the server.');
-  }
+export function getAdminSupabase(): SupabaseClient | null {
+  if (!url || !serviceKey) return null;
   if (!cached) {
-    cached = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
+    cached = createClient(url, serviceKey, {
       auth: { persistSession: false, autoRefreshToken: false },
+      global: { headers: { 'x-client-info': 'francis-server' } },
     });
   }
   return cached;
-}
-
-export function hasServiceRole(): boolean {
-  return Boolean(SERVICE_ROLE_KEY);
 }

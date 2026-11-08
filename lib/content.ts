@@ -1,129 +1,81 @@
 import 'server-only';
-import { createServiceClient, hasServiceRole } from './supabase/admin';
-import { FALLBACK_CONTENT } from './fallback';
+import { getPublicSupabase } from '@/lib/supabase/public';
+import { FALLBACK_DATA } from '@/lib/fallback';
 import type {
-  Achievement,
-  AboutSection,
-  Draftable,
-  Education,
-  Experience,
-  GalleryItem,
-  HeroHomepage,
-  SeoSettings,
-  SiteContent,
-  Skill,
-  SocialLink,
+  PortfolioData,
   ThemeSettings,
-  Project,
-  Profile,
-} from './types';
+  HomepageSettings,
+  SeoSettings,
+  DraftEnvelope,
+} from '@/lib/types';
 
-function unwrap<T>(raw: unknown, fallback: T): T {
-  const v = (raw ?? {}) as Partial<Draftable<T>> & Partial<T>;
-  if (v && typeof v === 'object' && 'live' in v && v.live) return v.live as T;
+/** Unwrap { live, draft } envelopes stored in website_settings. */
+function unwrap<T>(value: unknown, fallback: T): T {
+  if (value && typeof value === 'object' && 'live' in (value as Record<string, unknown>)) {
+    const live = (value as DraftEnvelope<T>).live;
+    if (live && typeof live === 'object') return { ...fallback, ...live };
+  }
   return fallback;
 }
 
-function order<T extends { display_order?: number }>(rows: T[] | null): T[] {
-  return [...(rows ?? [])].sort((a, b) => (a.display_order ?? 0) - (b.display_order ?? 0));
-}
+export async function getPortfolioData(): Promise<PortfolioData> {
+  const sb = getPublicSupabase();
+  if (!sb) return FALLBACK_DATA;
 
-const visible = <T extends { visible?: boolean }>(rows: T[]): T[] => rows.filter((r) => r.visible !== false);
-
-/** Fetch all public content. Never throws — falls back to bundled defaults. */
-export async function getSiteContent(): Promise<SiteContent> {
-  if (!hasServiceRole() && !process.env.NEXT_PUBLIC_SUPABASE_URL) {
-    return FALLBACK_CONTENT;
-  }
   try {
-    // Public reads: use the service client (missing key → error → fallback).
-    const supabase = createServiceClient();
-    const [profiles, about, skills, education, projects, experience, achievements, gallery, socials, settings, ai] =
-      await Promise.all([
-        supabase.from('profiles').select('*').eq('id', 'francis').maybeSingle(),
-        supabase.from('about_sections').select('*').order('display_order'),
-        supabase.from('skills').select('*').order('display_order'),
-        supabase.from('education').select('*').order('display_order'),
-        supabase.from('projects').select('*').order('display_order'),
-        supabase.from('experience').select('*').order('display_order'),
-        supabase.from('achievements').select('*').order('display_order'),
-        supabase.from('gallery').select('*').order('display_order'),
-        supabase.from('social_links').select('*').order('display_order'),
-        supabase.from('website_settings').select('key, value'),
-        supabase.from('ai_settings').select('enabled, welcome_message, allowed_uploads').eq('id', 1).maybeSingle(),
-      ]);
+    const [
+      profileRes,
+      aboutRes,
+      skillsRes,
+      educationRes,
+      projectsRes,
+      experienceRes,
+      achievementsRes,
+      galleryRes,
+      socialsRes,
+      settingsRes,
+    ] = await Promise.all([
+      sb.from('profiles').select('*').eq('id', 'francis').maybeSingle(),
+      sb.from('about_sections').select('*').eq('visible', true).order('display_order'),
+      sb.from('skills').select('*').eq('visible', true).order('display_order'),
+      sb.from('education').select('*').eq('visible', true).order('display_order'),
+      sb.from('projects').select('*').eq('visible', true).order('display_order'),
+      sb.from('experience').select('*').eq('visible', true).order('display_order'),
+      sb.from('achievements').select('*').eq('visible', true).order('display_order'),
+      sb.from('gallery').select('*').eq('visible', true).order('display_order'),
+      sb.from('social_links').select('*').eq('visible', true).order('display_order'),
+      sb.from('website_settings').select('key, value'),
+    ]);
+
+    const profile = profileRes.data
+      ? { ...FALLBACK_DATA.profile, ...profileRes.data }
+      : FALLBACK_DATA.profile;
 
     const settingsMap = new Map<string, unknown>();
-    for (const row of settings.data ?? []) {
-      settingsMap.set((row as { key: string }).key, (row as { value: unknown }).value);
-    }
+    for (const row of settingsRes.data ?? []) settingsMap.set(row.key, row.value);
 
-    const homepage = unwrap<HeroHomepage>(settingsMap.get('homepage'), FALLBACK_CONTENT.homepage);
-    const seo = unwrap<SeoSettings>(settingsMap.get('seo'), FALLBACK_CONTENT.seo);
-    const theme = unwrap<ThemeSettings>(settingsMap.get('theme'), FALLBACK_CONTENT.theme);
-    const maintenance = unwrap<typeof FALLBACK_CONTENT.maintenance>(
-      settingsMap.get('maintenance'),
-      FALLBACK_CONTENT.maintenance,
+    const theme = unwrap<ThemeSettings>(settingsMap.get('theme'), FALLBACK_DATA.settings.theme);
+    const homepage = unwrap<HomepageSettings>(
+      settingsMap.get('homepage'),
+      FALLBACK_DATA.settings.homepage
     );
+    const seo = unwrap<SeoSettings>(settingsMap.get('seo'), FALLBACK_DATA.settings.seo);
 
     return {
-      source: 'live',
-      profile: (profiles.data as Profile | null) ?? FALLBACK_CONTENT.profile,
-      about: visible(order(about.data as AboutSection[] | null)) ?? FALLBACK_CONTENT.about,
-      skills: visible(order(skills.data as Skill[] | null)),
-      education: visible(order(education.data as Education[] | null)),
-      projects: visible(order(projects.data as Project[] | null)),
-      experience: visible(order(experience.data as Experience[] | null)),
-      achievements: visible(order(achievements.data as Achievement[] | null)),
-      gallery: visible(order(gallery.data as GalleryItem[] | null)),
-      socials: visible(order(socials.data as SocialLink[] | null)),
-      homepage,
-      seo,
-      theme,
-      maintenance: {
-        enabled: Boolean(maintenance.enabled),
-        message: maintenance.message || FALLBACK_CONTENT.maintenance.message,
-      },
-      ai: {
-        enabled: ai.data?.enabled ?? true,
-        welcomeMessage: ai.data?.welcome_message || FALLBACK_CONTENT.ai.welcomeMessage,
-        allowedUploads: (ai.data?.allowed_uploads as string[] | null) ?? ['pdf', 'txt', 'docx'],
-      },
+      source: 'supabase',
+      profile,
+      about: aboutRes.data?.length ? aboutRes.data : FALLBACK_DATA.about,
+      skills: skillsRes.data?.length ? skillsRes.data : FALLBACK_DATA.skills,
+      education: educationRes.data?.length ? educationRes.data : FALLBACK_DATA.education,
+      projects: projectsRes.data ?? [],
+      experience: experienceRes.data ?? [],
+      achievements: achievementsRes.data ?? [],
+      gallery: galleryRes.data ?? [],
+      socials: socialsRes.data?.length ? socialsRes.data : FALLBACK_DATA.socials,
+      settings: { theme, homepage, seo },
     };
   } catch (error) {
-    console.error('[content] Supabase unavailable, using bundled fallback:', error);
-    return FALLBACK_CONTENT;
+    console.error('[portfolio] Supabase fetch failed, using fallback content:', error);
+    return FALLBACK_DATA;
   }
-}
-
-/** Compact FRANCIS context injected into portfolio-mode prompts (and retrieval). */
-export function buildFrancisContext(content: SiteContent): string {
-  const p = content.profile;
-  const lines: string[] = [
-    'APPROVED KNOWLEDGE ABOUT FRANCIS (use this for personal questions; do not invent beyond it):',
-    `- Name: ${p.full_name} (display: ${p.display_name})`,
-    `- Title: ${p.title}`,
-    `- Education: ${p.education} at ${p.college}`,
-    `- Previous education: ${p.previous_education}`,
-    `- Location: ${p.location}`,
-    `- Email: ${p.email}`,
-    `- Instagram: ${p.instagram_url}`,
-    `- GitHub: ${p.github_url || 'not published yet'}`,
-    `- LinkedIn: ${p.linkedin_url || 'not published yet'}`,
-    `- Intro: ${p.intro}`,
-    `- Tagline: ${p.tagline}`,
-    '',
-    'PROJECTS:',
-  ];
-  for (const proj of content.projects) {
-    lines.push(
-      `- ${proj.title}: ${proj.tagline ?? ''} ${proj.description ?? ''} Tech: ${proj.technologies.join(', ')}. Live: ${proj.live_url ?? 'n/a'}`,
-    );
-  }
-  lines.push('', 'EDUCATION:');
-  for (const ed of content.education) {
-    lines.push(`- ${ed.degree} — ${ed.institution} (${ed.field ?? ''}) · ${ed.status ?? ''}`);
-  }
-  lines.push('', 'SKILLS (self-rated, editable):', content.skills.map((s) => s.name).join(', '));
-  return lines.join('\n');
 }

@@ -1,65 +1,58 @@
-import { createServiceClient } from '@/lib/supabase/admin';
+import { NextRequest } from 'next/server';
+import { getAdminSupabase } from '@/lib/supabase/admin';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const hourlyBuckets = new Map<string, number[]>();
-const HOURLY_LIMIT = 5;
+// Best-effort in-memory throttle (per server instance)
+const hits = new Map<string, number[]>();
 
-function rateLimited(key: string): boolean {
+function throttled(ip: string, limit = 5, windowMs = 10 * 60 * 1000): boolean {
   const now = Date.now();
-  const windowStart = now - 60 * 60 * 1000;
-  const hits = (hourlyBuckets.get(key) ?? []).filter((t) => t > windowStart);
-  if (hits.length >= HOURLY_LIMIT) {
-    hourlyBuckets.set(key, hits);
+  const list = (hits.get(ip) ?? []).filter((t) => now - t < windowMs);
+  if (list.length >= limit) {
+    hits.set(ip, list);
     return true;
   }
-  hits.push(now);
-  hourlyBuckets.set(key, hits);
+  list.push(now);
+  hits.set(ip, list);
   return false;
 }
 
-export async function POST(req: Request) {
-  let body: { name?: string; email?: string; subject?: string; message?: string; website?: string };
-  try {
-    body = await req.json();
-  } catch {
-    return Response.json({ error: 'bad_request', message: 'The request body was not valid JSON.' }, { status: 400 });
+export async function POST(req: NextRequest) {
+  const body = await req.json().catch(() => ({}));
+  // Honeypot — bots fill hidden fields, humans don't
+  if (String(body.company ?? '').trim() !== '') {
+    return Response.json({ ok: true });
   }
 
-  const name = (body.name ?? '').trim().slice(0, 120);
-  const email = (body.email ?? '').trim().slice(0, 200);
-  const subject = (body.subject ?? '').trim().slice(0, 200);
-  const message = (body.message ?? '').trim().slice(0, 5000);
-  const honeypot = (body.website ?? '').trim();
+  const name = String(body.name ?? '').trim().slice(0, 120);
+  const email = String(body.email ?? '').trim().slice(0, 180);
+  const subject = String(body.subject ?? '').trim().slice(0, 200);
+  const message = String(body.message ?? '').trim().slice(0, 5000);
 
-  // Honeypot: silently accept to avoid tipping off bots, but store nothing.
-  if (honeypot) return Response.json({ ok: true });
-
-  if (!name) return Response.json({ error: 'name_required', message: 'Please tell me your name.' }, { status: 400 });
-  if (!EMAIL_RE.test(email)) return Response.json({ error: 'email_invalid', message: 'Please enter a valid email address.' }, { status: 400 });
-  if (message.length < 10) return Response.json({ error: 'message_too_short', message: 'Please write a message of at least 10 characters.' }, { status: 400 });
-
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-  if (rateLimited(ip)) {
-    return Response.json({ error: 'rate_limited', message: 'Too many messages from this network. Please try again later or use email/WhatsApp directly.' }, { status: 429 });
-  }
-
-  let supabase;
-  try {
-    supabase = createServiceClient();
-  } catch {
+  if (name.length < 2 || !EMAIL_RE.test(email) || message.length < 10) {
     return Response.json(
-      { error: 'server_not_configured', message: 'The contact service is not configured on this deployment yet. Please reach Francis directly by email.' },
-      { status: 500 },
+      { code: 'invalid', message: 'Please provide a valid name, email and a message of at least 10 characters.' },
+      { status: 400 }
     );
   }
 
-  const { error } = await supabase.from('contact_messages').insert({ name, email, subject: subject || null, message });
+  const ip = (req.headers.get('x-forwarded-for') ?? req.headers.get('x-real-ip') ?? 'unknown').split(',')[0].trim();
+  if (throttled(ip)) {
+    return Response.json({ code: 'rate_limited', message: 'Too many messages from this network. Please try again later.' }, { status: 429 });
+  }
+
+  const sb = getAdminSupabase();
+  if (!sb) {
+    return Response.json({ code: 'db_unavailable', message: 'The contact service is not configured. Please email yadlapallif@gmail.com directly.' }, { status: 503 });
+  }
+
+  const { error } = await sb.from('contact_messages').insert({ name, email, subject: subject || null, message });
   if (error) {
     console.error('[contact] insert failed:', error);
-    return Response.json({ error: 'store_failed', message: 'Could not save your message right now. Please try again or email Francis directly.' }, { status: 500 });
+    return Response.json({ code: 'db_error', message: 'Could not store your message. Please email yadlapallif@gmail.com directly.' }, { status: 500 });
   }
   return Response.json({ ok: true });
 }

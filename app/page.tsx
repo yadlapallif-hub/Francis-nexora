@@ -1,59 +1,56 @@
-import Link from 'next/link';
-import { getSiteContent } from '@/lib/content';
-import NavBar from '@/components/portfolio/NavBar';
-import Hero from '@/components/portfolio/Hero';
-import Projects from '@/components/portfolio/Projects';
-import Contact from '@/components/portfolio/Contact';
-import Footer from '@/components/portfolio/Footer';
-import { Marquee, AboutScene, SkillsScene, EducationScene, ExperienceScene } from '@/components/portfolio/sections';
-import { LogoMark } from '@/components/brand';
-import { Sparkles } from 'lucide-react';
+import { getPortfolioData } from '@/lib/content';
+import { Nav } from '@/components/layout/Nav';
+import { Footer } from '@/components/layout/Footer';
+import { Loader } from '@/components/home/Loader';
+import { Hero } from '@/components/home/Hero';
+import { About } from '@/components/home/About';
+import { Skills } from '@/components/home/Skills';
+import { Education } from '@/components/home/Education';
+import { Projects } from '@/components/home/Projects';
+import { ExperienceAchievements } from '@/components/home/ExperienceAchievements';
+import { Contact } from '@/components/home/Contact';
+import { Closing } from '@/components/home/Closing';
 
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-  const content = await getSiteContent();
-
-  if (content.maintenance.enabled) {
-    return (
-      <main className="hero-scene flex min-h-screen flex-col items-center justify-center px-6 text-center text-white">
-        <LogoMark size={72} />
-        <p className="mt-8 font-mono text-[10px] uppercase tracking-[0.5em] text-blue-300/80">Scheduled transmission</p>
-        <h1 className="text-display mt-4 text-4xl font-bold sm:text-6xl">FRANCIS is recalibrating.</h1>
-        <p className="mt-4 max-w-md text-blue-100/85">{content.maintenance.message}</p>
-      </main>
-    );
-  }
-
-  const scenes = content.homepage.scenes ?? {};
-  const show = (key: string) => scenes[key] !== false;
+  const data = await getPortfolioData();
+  const { homepage } = data.settings;
+  const scenes = homepage.scenes;
+  const nexora = data.projects.find((p) => p.slug === 'nexora-agent');
 
   return (
-    <main className="bg-white">
-      <NavBar resumeUrl={content.profile.resume_url} />
-      <Hero homepage={content.homepage} profile={content.profile} />
-      <Marquee />
-      {show('about') && <AboutScene about={content.about} profile={content.profile} />}
-      {show('skills') && <SkillsScene skills={content.skills} />}
-      {show('education') && <EducationScene education={content.education} />}
-      {show('projects') && <Projects projects={content.projects} />}
-      {show('experience') && <ExperienceScene experience={content.experience} achievements={content.achievements} />}
-      {show('contact') && <Contact content={content} />}
-      <Footer content={content} />
+    <main id="francis-root" className="bg-white">
+      <Loader />
+      <Nav resumeUrl={data.profile.resume_url} />
 
-      {/* Ask dock — Scene ∞ */}
-      <Link
-        href="/ai"
-        aria-label="Open FRANCIS AI"
-        className="group fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full border border-blue-200/60 bg-navy/90 py-3 pl-4 pr-5 text-white shadow-glow backdrop-blur transition hover:bg-navy sm:bottom-7 sm:right-7"
-      >
-        <span className="relative flex h-3 w-3">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-electric opacity-75" />
-          <span className="relative inline-flex h-3 w-3 rounded-full bg-electric" />
-        </span>
-        <span className="font-display text-[11px] font-bold uppercase tracking-[0.22em] text-blue-100 transition group-hover:text-white">Ask FRANCIS AI</span>
-        <Sparkles size={15} className="text-blue-300 transition group-hover:rotate-12" />
-      </Link>
+      {/* SCENE 02 — Cinematic hero */}
+      <Hero homepage={homepage} profile={data.profile} nexoraLiveUrl={nexora?.live_url} />
+
+      {/* SCENE 03 — About */}
+      {scenes.about !== false && <About sections={data.about} profile={data.profile} />}
+
+      {/* SCENE 04 — Technical skills */}
+      {scenes.skills !== false && <Skills skills={data.skills} />}
+
+      {/* SCENE 05 — Education */}
+      {scenes.education !== false && <Education education={data.education} />}
+
+      {/* SCENE 06 — Featured projects */}
+      {scenes.projects !== false && <Projects projects={data.projects} />}
+
+      {/* SCENE 07 — Experience & achievements */}
+      {scenes.experience !== false && (
+        <ExperienceAchievements experience={data.experience} achievements={data.achievements} />
+      )}
+
+      {/* SCENE 08 — Contact */}
+      {scenes.contact !== false && <Contact profile={data.profile} socials={data.socials} />}
+
+      {/* SCENE 09 — Final brand frame */}
+      <Closing />
+
+      <Footer socials={data.socials} email={data.profile.email} />
     </main>
   );
 }

@@ -1,51 +1,48 @@
 import type { Metadata, Viewport } from 'next';
+import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/inter';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
 import './globals.css';
-import { getSiteContent } from '@/lib/content';
-import { SITE_URL } from '@/lib/site';
+import { getPortfolioData } from '@/lib/content';
 
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const content = await getSiteContent();
-  const seo = content.seo;
+  const data = await getPortfolioData();
+  const seo = data.settings.seo;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://francis-platform.vercel.app';
   return {
-    metadataBase: new URL(SITE_URL),
-    title: { default: seo.title, template: '%s · FRANCIS' },
+    metadataBase: new URL(siteUrl),
+    title: { default: seo.title, template: '%s — FRANCIS' },
     description: seo.description,
     keywords: seo.keywords,
-    authors: [{ name: 'Yadlapalli Francis' }],
+    authors: [{ name: 'Yadlapalli Francis', url: siteUrl }],
     creator: 'Yadlapalli Francis',
     openGraph: {
       type: 'website',
-      url: SITE_URL,
+      url: siteUrl,
+      title: seo.title,
+      description: seo.description,
       siteName: 'FRANCIS',
-      title: seo.title,
-      description: seo.description,
-      images: [{ url: '/images/hero-backdrop.jpg', width: 1920, height: 1080, alt: 'FRANCIS — THINK. CREATE. BUILD. INNOVATE.' }],
+      images: [{ url: '/images/hero-backdrop.jpg', width: 1600, height: 900, alt: 'FRANCIS — Think. Create. Build. Innovate.' }],
     },
-    twitter: {
-      card: 'summary_large_image',
-      title: seo.title,
-      description: seo.description,
-      images: ['/images/hero-backdrop.jpg'],
-    },
+    twitter: { card: 'summary_large_image', title: seo.title, description: seo.description, images: ['/images/hero-backdrop.jpg'] },
     robots: { index: true, follow: true },
-    alternates: { canonical: SITE_URL },
+    icons: { icon: '/icon.svg' },
   };
 }
 
 export const viewport: Viewport = {
+  themeColor: '#071B3A',
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#071B3A',
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const content = await getSiteContent();
-  const accent = content.theme?.accent ?? '#2563EB';
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" style={{ ['--accent' as string]: accent }}>
-      <body className="bg-white font-body text-ink antialiased">{children}</body>
+    <html lang="en">
+      <body className="bg-white text-ink antialiased">{children}</body>
     </html>
   );
 }

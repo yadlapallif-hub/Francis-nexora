@@ -1,14 +1,12 @@
 import type { Metadata } from 'next';
-import AdminStudio from '@/components/admin/AdminStudio';
+import AdminApp from '@/components/admin/AdminApp';
 
 export const metadata: Metadata = {
-  title: 'Admin Control Studio',
-  description: 'Private control surface for the FRANCIS platform.',
-  robots: { index: false, follow: false, nocache: true },
+  title: 'FRANCIS Studio — Private',
+  description: 'Private administrator control studio for the FRANCIS platform.',
+  robots: { index: false, follow: false },
 };
 
-export const dynamic = 'force-dynamic';
-
 export default function AdminPage() {
-  return <AdminStudio />;
+  return <AdminApp />;
 }

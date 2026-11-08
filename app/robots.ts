@@ -1,11 +1,11 @@
 import type { MetadataRoute } from 'next';
-import { SITE_URL } from '@/lib/site';
 
 export default function robots(): MetadataRoute.Robots {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://francis-platform.vercel.app';
   return {
     rules: [
       { userAgent: '*', allow: '/', disallow: ['/admin', '/api/'] },
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

@@ -1,10 +1,10 @@
 import type { MetadataRoute } from 'next';
-import { SITE_URL } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://francis-platform.vercel.app';
   const now = new Date();
   return [
-    { url: SITE_URL, lastModified: now, changeFrequency: 'weekly', priority: 1 },
-    { url: `${SITE_URL}/ai`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: siteUrl, lastModified: now, changeFrequency: 'weekly', priority: 1 },
+    { url: `${siteUrl}/ai`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
   ];
 }

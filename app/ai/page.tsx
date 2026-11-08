@@ -1,13 +1,16 @@
 import type { Metadata } from 'next';
-import ChatWorkspace from '@/components/chat/ChatWorkspace';
+import FrancisChat from '@/components/chat/ChatApp';
 
 export const metadata: Metadata = {
-  title: 'FRANCIS AI — Ask me anything',
+  title: 'FRANCIS AI — Your Intelligent Digital Assistant',
   description:
-    'FRANCIS AI is the general-purpose intelligent assistant of the FRANCIS platform: programming, computer science, research with live web sources, document analysis, writing, learning and everything in between.',
-  robots: { index: true, follow: true },
+    'FRANCIS AI answers anything — general knowledge, programming, research with live web citations, writing, learning — and everything about Yadlapalli Francis, NEXORA and this platform. Streaming answers, document analysis (PDF, TXT, DOCX), conversation memory.',
+  openGraph: {
+    title: 'FRANCIS AI — More than a portfolio. Your intelligent digital assistant.',
+    description: 'A general-purpose AI inside the FRANCIS platform: research mode with citations, programming mentor, portfolio guide.',
+  },
 };
 
 export default function FrancisAiPage() {
-  return <ChatWorkspace />;
+  return <FrancisChat />;
 }
